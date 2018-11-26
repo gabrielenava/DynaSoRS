@@ -1,4 +1,4 @@
-function J_frameVel = idyn_getRelativeJacobian(KinDynModel,frameVel,frameRef)
+function J_frameVel = idyn_getRelativeJacobian(KinDynModel,frameVelID,frameRefID)
 
     % IDYN_GETRELATIVEJACOBIAN gets the relative jacobian, i.e. the matrix that
     %                          maps the velocity of frameVel expressed w.r.t.
@@ -7,12 +7,12 @@ function J_frameVel = idyn_getRelativeJacobian(KinDynModel,frameVel,frameRef)
     % This matlab function wraps a functionality of the iDyntree library.                     
     % For further info see also: http://wiki.icub.org/codyco/dox/html/idyntree/html/
     %
-    % FORMAT:  J_frameVel = idyn_getRelativeJacobian(KinDynModel,frameVel,frameRef)
+    % FORMAT:  J_frameVel = idyn_getRelativeJacobian(KinDynModel,frameVelID,frameRefID)
     %
-    % INPUTS:  - frameRef: a string that specifies the frame w.r.t. the velocity
-    %                      of frameVel is expressed;
-    %          - frameVel: a string that specifies the frame whose velocity
-    %                      is the one mapped by the jacobian;
+    % INPUTS:  - frameRefID: a number that specifies the frame w.r.t. the velocity
+    %                        of frameVel is expressed;
+    %          - frameVelID: a number that specifies the frame whose velocity
+    %                        is the one mapped by the jacobian;
     %          - KinDynModel: a structure containing the loaded model and additional info.
     %
     % OUTPUTS: - J_frameVel: [6 x ndof] frameVel Jacobian.
@@ -26,7 +26,7 @@ function J_frameVel = idyn_getRelativeJacobian(KinDynModel,frameVel,frameRef)
     J_frameVel_iDyntree = iDynTree.MatrixDynSize(6,KinDynModel.NDOF);
     
     % get the relative jacobian
-    ack = KinDynModel.kinDynComp.getRelativeJacobian(frameVel,frameRef,J_frameVel_iDyntree);  
+    ack = KinDynModel.kinDynComp.getRelativeJacobian(frameVelID,frameRefID,J_frameVel_iDyntree);  
     
     % check for errors
     if ~ack  

@@ -1,4 +1,8 @@
-% INITGRAVITYCOMPENSATION initializes the gravity compensation simulation.
+% INITWRAPPERSTEST initializes the iDyntree-wrappers test. WARNING: this script
+%                  just tests if the wrappers are correctly working. It does
+%                  not test if the quantities that are set to or get from
+%                  the model are correct. Running the wrappers in DEBUG mode
+%                  can help in testing the soundness of these quantities.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018
@@ -16,14 +20,12 @@ Config.initConditions.jointPos_init = [torso_Position';left_arm_Position';right_
 Config.initConditions.jointVel_init = zeros(length(Config.initConditions.jointPos_init),1);
 
 % configuration parameters
-Config.gravityAcc = [0;0;-9.81];
-
-% set the integration time step, total time, and the integration options
-Config.integration.tStart      = 0;
-Config.integration.tEnd        = 10;
-Config.integration.tStep       = 0.01;    
-Config.integration.options     = odeset('RelTol',1e-3,'AbsTol',1e-3);
-Config.integration.showWaitbar = true;
+Config.gravityAcc   = [0;0;-9.81];
+Config.frameVelRepr = 'mixed';
+Config.frameName    = 'l_sole';
+Config.frame2Name   = 'r_sole';
+Config.frameID      = 10;
+Config.frame2ID     = 1;
 
 % set the view options for the visualizer
 Config.visualizer.debug                    = false;

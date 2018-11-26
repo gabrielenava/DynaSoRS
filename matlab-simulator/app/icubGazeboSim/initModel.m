@@ -28,12 +28,12 @@ Config.initModel.useStaticGui      = true;
 
 % list of available simulations. The name specified in the simulation list
 % is the name of the script that runs the corresponding demo
-Config.initModel.simulationList    = {'runGravityCompensation'};
+Config.initModel.simulationList    = {'runGravityCompensation','runWrappersTest'};
 
 % for each element of Config.simulationList there should be a corresponding
 % folder inside the 'simulations' folder where all the functions and
 % scripts relative to the demo are stored
-Config.initModel.demoFolderList    = {'gravity-compensation'};
+Config.initModel.demoFolderList    = {'gravity-compensation','test-idyntree-wrappers'};
 
 % default simulation and demo folder that will be run when useStaticGui is 
 % set to false

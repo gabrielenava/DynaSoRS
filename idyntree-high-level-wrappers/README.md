@@ -27,8 +27,10 @@ For further information on the single wrapper, refer to the description included
 - [idyn_getRelativeJacobian](idyn_getRelativeJacobian.m) 
 - [idyn_getFreeFloatingMassMatrix](idyn_getFreeFloatingMassMatrix.m)
 - [idyn_getFrameBiasAcc](idyn_getFrameBiasAcc.m)
+- [idyn_getFrameFreeFloatingJacobian](idyn_getFrameFreeFloatingJacobian.m)
 - [idyn_getCenterOfMassPosition](idyn_getCenterOfMassPosition.m) 
 - [idyn_generalizedBiasForces](idyn_generalizedBiasForces.m) 
+- [idyn_generalizedGravityForces](idyn_generalizedGravityForces.m)
 - [idyn_getCenterOfMassJacobian](idyn_getCenterOfMassJacobian.m) 
 - [idyn_getCenterOfMassVelocity](idyn_getCenterOfMassVelocity.m) 
  

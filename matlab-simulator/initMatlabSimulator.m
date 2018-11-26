@@ -52,7 +52,7 @@ fprintf('\n######################################\n\n');
 disp('[initMatlabSimulator]: ready to start.') 
 
 % choose the folder containing the model to initialize. Default: 'icubGazeboSim'
-Config.initFolderName = 'walkman';
+Config.initFolderName = 'icubGazeboSim';
 
 % add paths to the library and wrappers folders
 addpath('./simulations/common-functions')
