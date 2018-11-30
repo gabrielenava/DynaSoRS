@@ -2,13 +2,17 @@
 
 A collection of Matlab functions that wraps the functionalities of the iDyntree class `KinDynComputations`.
 
-## List of available methods
+## List of available wrappers
 
 For further information on the single wrapper, refer to the description included in each function.
 
 ### KinDynComputations class
 
-#### Retrieve data from the robot model
+#### Load the reduced model
+
+- [idyn_loadReducedModel](idyn_loadReducedModel.m)
+
+#### Retrieve data from the model
 
 - [idyn_getJointPos](idyn_getJointPos.m)
 - [idyn_getJointVel](idyn_getJointVel.m)
@@ -34,7 +38,7 @@ For further information on the single wrapper, refer to the description included
 - [idyn_getCenterOfMassJacobian](idyn_getCenterOfMassJacobian.m) 
 - [idyn_getCenterOfMassVelocity](idyn_getCenterOfMassVelocity.m) 
  
-#### Set a robot-related quantity
+#### Set the model-related quantities
  
 - [idyn_setJointPos](idyn_setJointPos.m) 
 - [idyn_setFrameVelocityRepresentation](idyn_setFrameVelocityRepresentation.m)
@@ -48,4 +52,3 @@ Not proper wrappers, they wrap more than one method of the class each. **Require
 - [idyn_initializeVisualizer](idyn_initializeVisualizer.m)
 - [idyn_visualizerSetup](idyn_visualizerSetup.m)
 - [idyn_updateVisualizer](idyn_updateVisualizer.m)
-

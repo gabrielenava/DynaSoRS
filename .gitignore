@@ -1,8 +1,14 @@
 # Ignore the build directory
 build/
 
-# OS X Finder files
+# Ignore OS X Finder files
 .DS_Store
+
+# Ignore mp4 videos
+*.mp4
+
+# Ignore pictures
+*.png
 
 ## Matlab: ------------------------------------------
 ##
