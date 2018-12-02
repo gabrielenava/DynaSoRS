@@ -5,7 +5,7 @@
     <up_axis>Y_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="iCub_black-effect" name="iCub_black-effect">
+    <effect id="iCub_dark_grey-effect" name="iCub_dark_grey-effect">
       <profile_COMMON>
         <technique sid="common">
           <phong>
@@ -110,7 +110,7 @@
         <vertices id="head-mesh-vertices">
           <input semantic="POSITION" source="#head-mesh-positions"/>
         </vertices>
-        <polylist material="iCub_black-material" count="189">
+        <polylist material="iCub_dark_grey-material" count="189">
           <input semantic="VERTEX" source="#head-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#head-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
@@ -131,8 +131,8 @@
     </geometry>
   </library_geometries>
   <library_materials>
-    <material id="iCub_black-material" name="iCub_black">
-      <instance_effect url="#iCub_black-effect"/>
+    <material id="iCub_dark_grey-material" name="iCub_dark_grey-">
+      <instance_effect url="#iCub_dark_grey-effect"/>
     </material>
     <material id="iCub_metal-material" name="iCub_metal">
       <instance_effect url="#iCub_metal-effect"/>
@@ -145,7 +145,7 @@
           <instance_geometry url="#head-mesh">
             <bind_material>
               <technique_common>
-                <instance_material symbol="iCub_black-material" target="#iCub_black-material"/>
+                <instance_material symbol="iCub_dark_grey-material" target="#iCub_dark_grey-material"/>
                 <instance_material symbol="iCub_metal-material" target="#iCub_metal-material"/>
               </technique_common>
             </bind_material>

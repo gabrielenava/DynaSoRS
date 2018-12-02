@@ -42,7 +42,7 @@ Config.Simulator.showSimulationResults  = true;
 % save data and/or activate the option for creating a video of the simulation
 % and for saving pictures (only if available)
 Config.Simulator.activateVideoOption    = true;
-Config.Simulator.saveSimulationResults  = false;
+Config.Simulator.saveSimulationResults  = true;
 Config.Simulator.savePictures           = true;
 
 % activate/deactivate the iDyntree wrappers debug mode

@@ -41,5 +41,4 @@ function varargout = vectorDemux(vector,partitionTable)
         
         varargout{k-1} = vector(1+partitionTable(k-1):partitionTable(k-1)+partitionTable(k)); %#ok<AGROW>
     end
-end
-        
+end        

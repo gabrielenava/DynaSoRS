@@ -4,7 +4,7 @@ Matlab simulator of dynamics and kinematics of rigid multi-body systems. The sim
 
 ### Dependencies
 
-- This repository requires [iDyntree](https://github.com/robotology/idyntree) (and its dependencies) and [Matlab](https://it.mathworks.com/products/matlab.html) to be installed on your machine. When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`.
+- This repository requires [iDyntree](https://github.com/robotology/idyntree) (and its dependencies) and [Matlab](https://it.mathworks.com/products/matlab.html) to be installed on your machine. When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`. In order to use the `wrappers`, add to the Matlab path the `path/where/the/iDyntree/mex/file/is`. 
 
 - To use the [wrappers associated with the idyntree visualizer](https://github.com/gabrielenava/matlab-multi-body-sim/blob/master/idyntree-high-level-wrappers/idyn_initializeVisualizer.m), it is also required to install the `Irrlicht` library (see also this [README](idyntree-high-level-wrappers#visualizer-class)). To install the library on Ubuntu, just run on a terminal:
 

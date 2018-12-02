@@ -1,6 +1,6 @@
 function foldersList = getFoldersList(parentfolderName)
 
-    % GETFOLDERSLIST create a list of all the folders contained inside a
+    % GETFOLDERSLIST creates a list of all the folders contained inside a
     %                parent folder.
     %
     % FORMAT:  foldersList = getFoldersList(parentfolderName)

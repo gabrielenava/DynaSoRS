@@ -26,9 +26,6 @@ function [] = plotSimulationData(dataNameList,DataForVisualization,Visualization
 
     %% ------------Initialization----------------
     
-    % clear from previous plots
-    close all
-    
     disp('[plotSimulationData]: plotting data...')
     
     xAxisVarListIndex = [];
@@ -37,7 +34,7 @@ function [] = plotSimulationData(dataNameList,DataForVisualization,Visualization
     % open a GUI for selecting the x-axis in the plot
     if Visualization.activateAxisOption
         
-        [xAxisVarListIndex, ~] = listdlg('PromptString','Choose the x-axis variable (2D plots only):', ...
+        [xAxisVarListIndex, ~] = listdlg('PromptString','Choose the x-axis variable (2D plots):', ...
                                          'ListString',dataNameList, ...
                                          'SelectionMode','single', ...
                                          'ListSize',[250 150]);
@@ -125,6 +122,7 @@ function [] = plotSimulationData(dataNameList,DataForVisualization,Visualization
                 
                     % this is a 3D tensor of double. It requires a special 3D
                     % plot and the specifies x-axis is ignored
+                    % TODO
                     disp('3D PLOTTING WITHOUT X-AXIS!')
                     figure
                 else

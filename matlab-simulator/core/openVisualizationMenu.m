@@ -80,7 +80,11 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
         [plotDataList, ~] = listdlg('PromptString', 'SIMULATION RESULTS', ...
                                     'ListString', visualizationList, ...
                                     'SelectionMode', 'multiple', ...
-                                    'ListSize', [250 150]);                                 
+                                    'ListSize', [250 150]);
+                                
+        % close figures that remained open in a previous loop
+        close all
+        
         if isempty(plotDataList)
        
             % nothing is selected
