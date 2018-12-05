@@ -12,16 +12,17 @@
 %                           - initWrappersTest: [struct];
 %
 %                 For more information on the required fields inside
-%                 each structure, refer to the documentation inside
-%                 the "core" functions.
+%                 each structure, refer to the description of the
+%                 functions in the "core" folder.
 % 
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018
     
 %% ------------Initialization----------------
 
-% run the script containing the initial conditions for testing
+% run the script containing the initial conditions for testing the wrappers
 run(strcat(['app/',Config.Simulator.modelFolderName,'/initWrappersTest.m'])); 
+pause(2)
 clc 
 
 % test 1

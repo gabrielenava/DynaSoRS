@@ -1,6 +1,6 @@
 ## matlab-multi-body-sim
 
-Matlab simulator of dynamics and kinematics of rigid multi-body systems. The simulator is based on the [iDyntree](https://github.com/robotology/idyntree) dynamics library.
+Matlab simulator of dynamics, kinematics and control of rigid multi-body systems. The simulator is based on the [iDyntree](https://github.com/robotology/idyntree) library.
 
 ### Dependencies
 

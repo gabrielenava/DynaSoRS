@@ -16,8 +16,8 @@ function chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config)
     %                                      - integration: [struct];
     %
     %                            For more information on the required fields inside
-    %                            each structure, refer to the documentation inside
-    %                            the "core" functions.
+    %                            each structure, refer to the description of the
+    %                            functions in the "core" folder.
     %
     % FORMAT: chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config);
     %
@@ -53,7 +53,7 @@ function chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config)
     Ms         = M(7:end,7:end);
     hs         = biasForces(7:end);
     
-    % select the joint torques according to the demo
+    % select the joint torques as the gravity torques
     tau        = idyn_generalizedGravityForces(KinDynModel); 
     tau        = tau(7:end);
     
@@ -75,13 +75,13 @@ function chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config)
             if strcmp(Config.Visualization.vizVariableList{k},'Config') || strcmp(Config.Visualization.vizVariableList{k},'KinDynModel')
                 
                 % unpredictable things may happen if the user tries to save
-                % the "core" variables Config and KinDynModel dunring integration
+                % the "core" variables Config and KinDynModel during integration
                 error('[forwardDynamicsGravityComp]: "Config" and "KinDynModel" are reserved variables and cannot be saved in the MAT file.')
             end
                 
             % the variables whose name is specified in the "vizVariableList" 
             % must be accessible from this fuction, or the corresponding
-            % variable in the list will remain empty.
+            % variable name in the list is removed.
             if exist(Config.Visualization.vizVariableList{k},'var')
                  
                 Config.Visualization.updatedVizVariableList{cont} = Config.Visualization.vizVariableList{k};

@@ -1,9 +1,9 @@
 function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer,Simulator,SimulationOutput)
 
-    % OPENVISUALIZATIONMENU opens a Matlab GUI that shows the available
-    %                       plots and other simulation results.
+    % OPENVISUALIZATIONMENU opens a Matlab GUI that allows to select the 
+    %                       available plots and other simulation results.
     %
-    % FORMAT:  openVisualizationMenu(KinDynModel,Visualization,Simulator,SimulationOutput)
+    % FORMAT:  [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer,Simulator,SimulationOutput)
     %
     % INPUTS:  - KinDynModel: a structure containing the loaded model and 
     %                         additional info.
@@ -14,6 +14,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     %                           - see also "plotSimulationData" 
     %                           - vizVariableList: [cell array of strings];        
     %                           - dataFileName: [string];
+    %                           - figureSettingsList: [cell array of structs].
     %
     %          - iDyntreeVisualizer: iDyntree visualizer-specific configuration parameters;
     %
@@ -27,7 +28,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     %
     %                       - showSimulationResults: [bool];
     %                       - showVisualizer: [bool];
-    %                       - activateVideoOption: [bool] (if showVisualizer = true);
+    %                       - activateVideoMenu: [bool] (if showVisualizer = true);
     %                       - see also "runVisualizer" (if showVisualizer = true);
     %                       - see also "plotSimulationData" (if showSimulationResults = true);
     %
@@ -46,21 +47,28 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     %% ------------Initialization----------------
     
     % generate the visualization list
-    visualizationList = {};
+    visualizationList  = {};
+    figureSettingsList = {};
     cont = 1;
     
     if Simulator.showSimulationResults
 
         % pre-process the visualization list by ignoring all the empty
         % and/or non-double or non-boolean variables
-        DataForVisualization = load(['./data/',Visualization.dataFileName,'.mat']);
+        DataForVisualization = load(['./DATA/',Visualization.dataFileName,'.mat']);
         
         for k = 1:length(Visualization.vizVariableList)
             
             if ~isempty(DataForVisualization.(Visualization.vizVariableList{k})) && isfloat(DataForVisualization.(Visualization.vizVariableList{k}))
         
-                visualizationList{cont} = Visualization.vizVariableList{k}; %#ok<AGROW>
-                cont = cont +1;
+                if ismatrix(DataForVisualization.(Visualization.vizVariableList{k}))
+                    
+                    visualizationList{cont}  = Visualization.vizVariableList{k}; %#ok<AGROW>
+                    figureSettingsList{cont} = Visualization.figureSettingsList{k}; %#ok<AGROW>
+                    cont = cont +1;
+                else
+                    disp(['[openVisualizationMenu]: ignoring variable ',Visualization.vizVariableList{k}])
+                end
             else
                 disp(['[openVisualizationMenu]: ignoring variable ',Visualization.vizVariableList{k}])
             end
@@ -77,31 +85,30 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     
     while stayInLoop
     
-        [plotDataList, ~] = listdlg('PromptString', 'SIMULATION RESULTS', ...
+        [plotDataList, ~] = listdlg('PromptString', 'Simulation results:', ...
                                     'ListString', visualizationList, ...
                                     'SelectionMode', 'multiple', ...
                                     'ListSize', [250 150]);
-                                
-        % close figures that remained open in a previous loop
-        close all
-        
+
         if isempty(plotDataList)
        
             % nothing is selected
             stayInLoop = false;
         else
         
-            % the iDyntree visualizer is shown first.
-            if strcmp(visualizationList{plotDataList(end)},'iDyntree visualizer')
+            % close figures that remained open in a previous loop
+            close all
             
-                % keep the interface of the visualization function clear
-                jointPos      = SimulationOutput.jointPos;
-                w_H_b         = SimulationOutput.w_H_b;
-                time          = SimulationOutput.time;
-                fixedTimeStep = SimulationOutput.fixedTimeStep;
+            % the iDyntree visualizer is shown first (if selected).
+            if strcmp(visualizationList{plotDataList(end)},'iDyntree visualizer')
+
+                % keep the interface of the iDyntree visualizer function clear
+                jointPos = SimulationOutput.jointPos;
+                w_H_b    = SimulationOutput.w_H_b;
+                time     = SimulationOutput.time;
                 
                 % create a video of the simulation
-                if Simulator.activateVideoOption
+                if Simulator.activateVideoMenu
                     
                     answer = questdlg('Would you like to create a video of the simulation?', ...
 	                                  'Simulation Menu', ...
@@ -116,30 +123,32 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
                             createVideo = false; 
                         case 'No and don''t ask me again'
                             createVideo = false;
-                            Simulator.activateVideoOption = false;
+                            Simulator.activateVideoMenu = false;
                     end
                 else
                     createVideo = false;
                 end
-                runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)             
+                runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)             
             end
             
             if Simulator.showSimulationResults
                   
                 dataNameList = {};
-                
+                UpdatedFigureSettingsList = {};
+
                 for k = 1:length(plotDataList)
 
                     if ~strcmp(visualizationList{plotDataList(k)},'iDyntree visualizer')
                     
                         dataNameList{k} = visualizationList{plotDataList(k)}; %#ok<AGROW>
+                        UpdatedFigureSettingsList{k} = figureSettingsList{plotDataList(k)}; %#ok<AGROW>
                     end
                 end
                 
                 if ~isempty(dataNameList)
                     
                     % plot the other results
-                    plotSimulationData(dataNameList,DataForVisualization,Visualization,Simulator);
+                    plotSimulationData(dataNameList,UpdatedFigureSettingsList,DataForVisualization,Visualization,Simulator);
                 end
             end
         end

@@ -72,8 +72,7 @@ function [basePose,jointPos,baseVel,jointVel] = idyn_getRobotState(KinDynModel)
                     end
                 end
             end   
-        end   
-    
+        end    
         disp('[idyn_getRobotState]: done.')     
     end
 end

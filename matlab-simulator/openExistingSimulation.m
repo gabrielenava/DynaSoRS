@@ -1,7 +1,5 @@
 % OPENEXISTINGSIMULATION opens an existing simulation from MAT file and runs 
-%                        the visualization tools. WARNING: plots and the
-%                        iDyntree visualizer anyways require functionalities
-%                        of the matlab-simulator. 
+%                        the visualization tools (if possible). 
 %
 %                        REQUIRED:
 %
@@ -12,46 +10,63 @@
 %                                  - Visualization: [struct];
 %                                  - iDyntreeVisualizer: [struct];
 %                                  - SimulationOutput: [struct];
-%
+%   
 %                        For more information on the required fields inside
-%                        each structure, refer to the documentation inside
-%                        the "core" functions.
+%                        each structure, refer to the description of the
+%                        functions in the "core" folder.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018
     
 %% ------------Initialization----------------
-clear
+clear variables
 close('all','hidden')
 clc 
 
-% if TRUE, plot simulation results
+% if TRUE, also plot simulation results (if possible)
 showSimulationResults = true;
 
-% MAT files are expected to be stored in the 'data' folder
-if ~exist('./data','dir')
+% if TRUE, the simulation video and pics are saved again
+saveSimulationPics    = false;
+saveSimulationVideo   = false;
+
+% MAT files are expected to be stored in the 'DATA' folder
+if ~exist('./DATA','dir')
     
-    error('[openExistingSimulation]: no "data" folder found.')
+    error('[openExistingSimulation]: no "DATA" folder found.')
 else
     disp('[openExistingSimulation]: ready to load a MAT file.')
-    experimentsList = dir('data/*.mat');
+    experimentsList = dir('DATA/*.mat');
     expList         = cell(size(experimentsList,1),1);
     
     for k = 1:size(experimentsList,1)
         
         expList{k}  = experimentsList(k).name;
     end
-    [expNumber, ~]  = listdlg('PromptString','CHOOSE AN EXPERIMENT:', ...
+    [expNumber, ~]  = listdlg('PromptString','Choose a MAT file:', ...
                               'ListString',expList, ...
                               'SelectionMode','single', ...
                               'ListSize',[250 150]);                                
     if ~isempty(expNumber)
 
         % open the experiment
-        load(['./data/',expList{expNumber}]);
+        load(['./DATA/',expList{expNumber}]);
         
+        % set savePictures and activateVideoMenu FALSE by default
+        Config.Simulator.savePictures = false;
+        Config.Simulator.activateVideoMenu = false;
+        
+        if saveSimulationPics
+            
+            Config.Simulator.savePictures = true; %#ok<UNRCH>
+        end
+        if saveSimulationVideo
+            
+            Config.Simulator.activateVideoMenu = true; %#ok<UNRCH>
+        end
+            
         % show results (if available)
-        if showSimulationResults 
+        if showSimulationResults
 
             % add required paths
             addpath(genpath('./core'))
@@ -63,10 +78,13 @@ else
             KinDynModel = idyn_loadReducedModel(Config.Model.jointList,Config.Model.baseLinkName,Config.Model.modelPath, ...
                                                 Config.Model.modelName,Config.Simulator.wrappersDebugMode);
     
-            % open the visualization menu
-            openVisualizationMenu(KinDynModel,Config.Visualization,Config.iDyntreeVisualizer, ...
-                                  Config.Simulator,Config.SimulationOutput)
-
+            if Config.Simulator.showSimulationResults || Config.Simulator.showVisualizer
+                
+                % open the visualization menu
+                openVisualizationMenu(KinDynModel,Config.Visualization,Config.iDyntreeVisualizer, ...
+                                      Config.Simulator,Config.SimulationOutput);
+            end
+ 
             % remove paths
             rmpath(['./simulations/',Config.Simulator.demoFolderName])
             rmpath(genpath('./core'))
@@ -75,5 +93,4 @@ else
         end
     end
 end
-
 disp('[openExistingSimulation]: closing.')

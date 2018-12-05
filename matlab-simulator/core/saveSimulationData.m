@@ -24,7 +24,8 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
     %
     %                       REQUIRED FIELDS: 
     %
-    %                       - modelFolderName: [string];
+    %                       - modelFolderName: [string] "init" mode only;
+    %                       - savedDataTag; [string] "init" model only;
     %
     %          - mode: either "init" to create the MAT file or "update" to
     %                  update the already existing file.
@@ -42,14 +43,13 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
     
     if strcmp(mode,'init')
         
-        if ~exist('data','dir')
+        if ~exist('DATA','dir')
             
-            mkdir('data');
+            mkdir('DATA');
         end
         
         % generate the MAT file name
-        c            = clock;
-        dataFileName = [Simulator.modelFolderName,'_',num2str(c(4)),'_',num2str(c(5))];
+        dataFileName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];
         
         % create the variables to plot if they do not exist
         if isempty(Visualization.vizVariableList)
@@ -66,22 +66,24 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
         end
         
         % save the variables in the MAT file
-        save(['./data/',dataFileName,'.mat'],Visualization.vizVariableList{:});
+        save(['./DATA/',dataFileName,'.mat'],Visualization.vizVariableList{:});
+        
+        disp(['[saveSimulationData]: created file ','./DATA/',dataFileName,'.mat']);
     
     elseif strcmp(mode,'update')
         
-        if exist('data','dir')
+        if exist('DATA','dir')
             
-            if exist(['./data/',Visualization.dataFileName,'.mat'],'file') == 2
+            if exist(['./DATA/',Visualization.dataFileName,'.mat'],'file') == 2
                 
                 % update the data inside the MAT file
-                DataForVisualization = matfile(['./data/',Visualization.dataFileName,'.mat'],'Writable',true);
+                DataForVisualization = matfile(['./DATA/',Visualization.dataFileName,'.mat'],'Writable',true);
                 
                 % the variable updatedVizVariableList contains all the
                 % user-selected variables names that existed in the
                 % workspace at the moment that saveSimulationData has
-                % been run in "update" mode. These variables are
-                % assumed to be either structures, cell, scalars,
+                % been called in "update" mode. These variables are
+                % assumed to be either structures, cell, scalars, 2D or 3D
                 % vectors or matrices (eventually of booleans).
                 for k = 1: length(Visualization.updatedVizVariableList)
                     
@@ -92,14 +94,14 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
                     if isstring(currentData) || ischar(currentData)
                             
                         % not easy to save them in a human-readable format
-                        error('[saveSimulationData]: strings and char not supported. Use cell arrays instead.');
+                        error('[saveSimulationData]: string and char not supported. Use cell array of strings instead.');
                     end   
 
                     if isvector(currentData)
 
                         if size(currentData,1) == 1
                            
-                           % all saved vectors must be of the form [n x 1]
+                           % all saved vectors are saved in the form [n x 1]
                            currentData = transpose(currentData);
                         end
                         
@@ -117,7 +119,7 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
                 error(['[saveSimulationData]: mat-file ',Visualization.dataFileName,'.mat not found.']);
             end
         else
-            error('[saveSimulationData]: Folder "data" does not exist.'); 
+            error('[saveSimulationData]: Folder "DATA" does not exist.'); 
         end          
     else
         error('[saveSimulationData]: "mode" must be either "init" or "update".');

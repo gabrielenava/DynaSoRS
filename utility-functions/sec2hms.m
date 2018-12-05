@@ -31,5 +31,4 @@ function c_hms = sec2hms(c_sec)
     end
     
     c_hms = [hours, min, sec];
-
 end

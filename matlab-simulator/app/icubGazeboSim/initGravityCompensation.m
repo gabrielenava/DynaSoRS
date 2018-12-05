@@ -6,12 +6,12 @@
 %
 %                                   - initGravComp: [struct]; (created here)
 %                                   - integration: [struct]; (partially created here)
-%                                   - Visualization: [struct]; (partially created here)
 %                                   - iDyntreeVisualizer: [struct]; (created here)
+%                                   - Simulator; [struct].
 %
 %                         For more information on the required fields inside
-%                         each structure, refer to the documentation inside
-%                         the "core" functions.
+%                         each structure, refer to the description of the
+%                         functions in the "core" folder.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018
@@ -20,6 +20,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Gravity compensation demo setup %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % set the initial robot position and velocity [deg] and gravity vector
 torso_Position     = [0  0  0];                 
@@ -34,6 +35,7 @@ Config.initGravComp.gravityAcc    = [0;0;-9.81];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% Numerical integration setup %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % set the integration time step, total time, and the integration options
 Config.integration.tStart      = 0;
@@ -45,26 +47,17 @@ Config.integration.showWaitbar = true;
    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Visualization and data plotting setup %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% this list contains the NAMES of all the variables that it will be
-% possible to plot when the simulation is over
-Config.Visualization.vizVariableList = {'t','jointPos','jointVel','M','tau'};
-
-% if TRUE, a GUI will appear asking the user to specify which variable 
-% to use as x-axis in the plots between the ones inside the "vizVariableList".
-% If FALSE, the "defaultXAxisVariableName" will be used instead. The
-% selected x-axis must respect these conditions:
-%
-% - the variable exists;
-% - the variable "defaultXAxisVariableName" is also inside the "vizVariableList";
-% - the variable is a vector of the same length of the y-axis;
-%
-% if one of the above conditions is not true, the specified x-axis is ignored.
-Config.Visualization.activateAxisOption = true;
-Config.Visualization.defaultXAxisVariableName  = 't';
+% visualization settings may be complicated. For this reason, each model
+% folder which uses complicated visualization settings has a file called
+% 'initVisualization.m' which contains the visualization settings for each
+% simulations which requires plotting
+run(strcat('./initVisualization.m'));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% iDyntree visualizer setup %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % set the view options for the visualizer (model simulator with iDyntree)
 Config.iDyntreeVisualizer.debug                    = false;

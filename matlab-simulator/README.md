@@ -37,9 +37,8 @@ It is possible to avoid opening the menus by setting to `TRUE` the variables `us
 
 ## Visualization
 
-After running the simulation, it is possible to visualize the robot movements by means of the `iDyntree visualizer`. plot the results and take a video/save pictures of the simulation. In order to use the iDyntree visualizer it may be required to provide the mesh files of the links of your model. You can store the meshes in a 
-folder called `meshes` inside the `app/robotName` folder. WARNING: not all the mesh files are loaded correctly by the iDyntree visualizer!
+After running the simulation, it is possible to visualize the robot movements by means of the `iDyntree visualizer`, plot the results and take a video/save pictures of the simulation. In order to use the iDyntree visualizer it may be required to provide the mesh files of the links of your model. You can store the meshes in a folder called `meshes` inside the `app/robotName` folder. WARNING: not all the mesh files are loaded correctly by the iDyntree visualizer!
 
 ## Post-processing
 
-It is also possible to save the simulation data and replay the iDyntree visualizer/replot the figures of the simulation by running the `openExistingSimulation` script.
+It is also possible to save the simulation data and replay the iDyntree visualizer/replot the figures of the simulation by running the [openExistingSimulation](openExistingSimulation.m) script.

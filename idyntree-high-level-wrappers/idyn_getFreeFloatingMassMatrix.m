@@ -50,8 +50,7 @@ function M = idyn_getFreeFloatingMassMatrix(KinDynModel)
                 
                 error('[idyn_getFreeFloatingMassMatrix]: M is not positive definite')
             end
-        end
-        
+        end       
         disp('[idyn_getFreeFloatingMassMatrix]: done.')     
     end 
 end

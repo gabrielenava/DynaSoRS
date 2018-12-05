@@ -59,8 +59,7 @@ function w_H_frame = idyn_getWorldTransform(KinDynModel,frameName)
                      end
                  end
              end   
-         end              
-             
+         end                          
          disp('[idyn_getWorldTransform]: done.')     
     end
 end

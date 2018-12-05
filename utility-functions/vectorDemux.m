@@ -1,6 +1,6 @@
 function varargout = vectorDemux(vector,partitionTable)
 
-    % VECTORDEMUX demux a vector according to a user-defined partition.
+    % VECTORDEMUX demuxes a vector according to a user-defined partition.
     %
     % FORMAT:  varargout = vectorDemux(vector,partitionTable)
     %

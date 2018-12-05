@@ -1,11 +1,10 @@
-function [] = runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)   
+function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)   
 
     % RUNVISUALIZER runs the iDyntree visualizer. Even if the system state 
     %               has been obtained through variable-step integration, the 
-    %               update rate of the visualizer is fixed and it is equal 
-    %               to the user-defined variable fixedTimeStep.
+    %               update rate of the visualizer is adjusted accordingly.
     %
-    % FORMAT:  [] = runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDynModel,iDyntreeVisualizer,Simulator) 
+    % FORMAT:  [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntreeVisualizer,Simulator) 
     %
     % INPUTS:  - jointPos: matrix of joints positions at each integration step.
     %
@@ -20,10 +19,9 @@ function [] = runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDyn
     %                   - CASE 2: w_H_b = [16 x 1] the system will be
     %                                     considered fixed-base;
     %
-    %          - time: integration time vector. It must always be defined such 
+    %          - time: [s] integration time vector. It must always be defined such 
     %                  that length(time) = max(size(jointPos,2),size(w_H_b,2))
     %
-    %          - fixedTimeStep: the visualizer time step. 
     %          - createVideo: if TRUE, a video of the simulation will be created.
     %          - KinDynModel: a structure containing the loaded model and additional info.
     %          - iDyntreeVisualizer: iDyntree visualizer-specific configuration parameters;
@@ -41,6 +39,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDyn
     %                       REQUIRED FIELDS: 
     %
     %                       - modelFolderName: [string];
+    %                       - savedDataTag: [string];
     %
     % Author : Gabriele Nava (gabriele.nava@iit.it)
     % Genova, Nov 2018
@@ -58,58 +57,22 @@ function [] = runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDyn
         
         error('[runVisualizer]: invalid base pose vector.');
     end
-    if fixedTimeStep <= 0
-        
-        error('[runVisualizer]: fixedTimeStep must be strictly positive.');
-    end
     if length(time) ~= max(size(jointPos,2),size(w_H_b,2))
        
         error('[runVisualizer]: time vector must have length = max(size(jointPos,2),size(w_H_b,2)).');
     end
-    if time(end) <= fixedTimeStep
+    if sum(time < 0) ~= 0 || time(end) <= 0
         
-        error('[runVisualizer]: time(end) must be greater than fixedTimeStep.');
+        error('[runVisualizer]: time must be positive.');
     end
         
     % create the media folder for storing videos of the robot simulation
     if createVideo     
-        if ~exist('./media', 'dir')
-            mkdir('./media');
+        if ~exist('./MEDIA', 'dir')
+            mkdir('./MEDIA');
         end
-        disp('[runVisualizer]: createVideo option enabled. Trying to create a video of the simulation...'); 
-        disp('[runVisualizer]: creating the video will considerably slow down the simulation!');
-    end
-    
-    % create the vector of fixed time step
-    if length(time) > 1
-
-        time_fixed = time(1):fixedTimeStep:time(end);
-    else
-        time_fixed = 0:fixedTimeStep:time;
-    end 
-
-    % interpolate the system state according to the fixed time step
-    interp_jointPos = zeros(size(jointPos));
-    interp_w_H_b    = zeros(size(w_H_b));
-    
-    if size(jointPos,2) > 1
-            
-        for k = 1:size(jointPos,1)
-                
-            interp_jointPos(k,:) = interp1(time,jointPos(k,:),time_fixed); 
-        end
-    else
-        interp_jointPos = jointPos.*ones(size(jointPos,1),length(time_fixed));
-    end
-    
-    if size(w_H_b,2) > 1
-                
-        % interpolation of the transformation matrix requires
-        % special calculations, as the interpolated values must
-        % belong to the group SO(3)
-        % TODO 
-    else
-        interp_w_H_b = w_H_b.*ones(size(w_H_b,1),length(time_fixed));
+        disp('[runVisualizer]: createVideo option is enabled. Trying to create a video of the simulation...'); 
+        disp('[runVisualizer]: WARNING: creating the video will considerably slow down the simulation!');
     end
 
     % start the visualizer
@@ -124,47 +87,66 @@ function [] = runVisualizer(jointPos,w_H_b,time,fixedTimeStep,createVideo,KinDyn
     idyn_visualizerSetup(Visualizer,disableViewInertialFrame,lightDir,cameraPos,cameraTarget);
     
     % compute simulator real time factor
-    c_in  = clock;
+    c_in = clock;
 
-    for i = 1:length(time_fixed)
+    for i = 1:length(time)
 
         tic
        
-        w_H_b_viz    = reshape(interp_w_H_b(:,i),4,4);
-        jointPos_viz = interp_jointPos(:,i); 
+        if size(w_H_b,2) == 1
+           
+            w_H_b_viz    = reshape(w_H_b(:,1),4,4);
+        else    
+            w_H_b_viz    = reshape(w_H_b(:,i),4,4);
+        end
+        if size(jointPos,2) == 1
+            
+            jointPos_viz = jointPos(:,1); 
+        else
+            jointPos_viz = jointPos(:,i); 
+        end
             
         % update the visualizer
         idyn_updateVisualizer(Visualizer,KinDynModel,jointPos_viz,w_H_b_viz);
         
         % create a .mp4 video from of the iDyntree simulation
         if createVideo 
-            filename = strcat('./media/img',sprintf('%04d',i),'.png');         
+            filename = strcat('./MEDIA/img',sprintf('%04d',i),'.png');         
             Visualizer.viz.drawToFile(filename);         
         end 
         
         t = toc;
         
-        pause(max(0,fixedTimeStep-t))
+        if i < length(time)
+            
+            pause(max(0,time(i+1)-time(i)-t))
+            
+        elseif length(time) == 1
+            
+            % the visualizer is used to just show a static system pose for 
+            % the amount of time specified in the "time" variable
+            pause(max(0,time-t))
+        end       
     end  
     
     % compute the simulator real time factor
     c_out           = clock;
     c_diff          = getTimeDiffInSeconds(c_in,c_out);
-    expectedEndTime = time_fixed(end); %[s]
+    expectedEndTime = time(end); %[s]
     realTimeFactor  = expectedEndTime/c_diff;
     
     disp(['[runVisualizer]: simulation real time factor: ', num2str(realTimeFactor),'.']);
     
     if createVideo   
         
-        videoName = [Simulator.modelFolderName,'_',num2str(c_out(4)),'_',num2str(c_out(5))];     
+        videoName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];     
 
-        command   = strcat('ffmpeg -framerate 60 -i ./media/img%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p ./media/',videoName,'.mp4'); 
+        command   = strcat('ffmpeg -framerate 60 -i ./MEDIA/img%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p ./MEDIA/',videoName,'.mp4'); 
         [~, ~]    = system(command);
 
-        disp('[runVisualizer]: video created. Removing images...');      
+        disp(['[runVisualizer]: video ',Simulator.modelFolderName,'_',Simulator.savedDataTag,'.mp4 created. Removing images...']);      
     
-        command   = strcat('rm -Rf ./media/*.png'); 
+        command   = strcat('rm -Rf ./MEDIA/*.png'); 
         [~, ~]    = system(command);
  
         disp('[runVisualizer]: done.'); 

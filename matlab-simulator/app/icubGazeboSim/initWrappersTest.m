@@ -10,8 +10,8 @@
 %                            - iDyntreeVisualizer: [struct]; (created here)
 %
 %                  For more information on the required fields inside
-%                  each structure, refer to the documentation inside
-%                  the "core" functions.
+%                  each structure, refer to the description of the
+%                  functions in the "core" folder.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018
@@ -20,6 +20,7 @@
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% iDyntree wrappers test demo setup %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % set the initial robot position and velocity [deg]
 torso_Position     = [0  0  0];                 
@@ -41,6 +42,7 @@ Config.initWrappersTest.frame2ID     = 2;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% iDyntree visualizer setup %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % set the view options for the iDyntree visualizer
 Config.iDyntreeVisualizer.debug                    = false;

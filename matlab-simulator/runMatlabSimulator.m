@@ -9,8 +9,8 @@
 %                              - Model: [struct];
 %
 %                    For more information on the required fields inside
-%                    each structure, refer to the documentation inside
-%                    the "core" functions.
+%                    each structure, refer to the description of the
+%                    functions in the "core" folder.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018
@@ -21,11 +21,15 @@ close('all','hidden')
 clc
 
 fprintf('\n######################################\n');
-fprintf('\nMatlab rigid-multi-body simulator V1.1\n');
+fprintf('\nMatlab rigid-multi-body simulator V1.3\n');
 fprintf('\n######################################\n\n');
+
+% TODO: in case the previous simulation exited with an error, remove the
+%       paths to the local folders before starting
 
 disp('[runMatlabSimulator]: loading simulation setup...')
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% USER DEFINED SIMULATION SETUP %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -35,13 +39,13 @@ Config.Simulator.useDefaultModel        = false;
 % decide either to run the default simulation or to use the GUI to select it
 Config.Simulator.runDefaultSimulation   = false;
  
-% show a simulation of the system (only if available) and data plotting
+% show a simulation of the system and data plotting (only if available)
 Config.Simulator.showVisualizer         = true;
 Config.Simulator.showSimulationResults  = true;
 
 % save data and/or activate the option for creating a video of the simulation
 % and for saving pictures (only if available)
-Config.Simulator.activateVideoOption    = true;
+Config.Simulator.activateVideoMenu      = true;
 Config.Simulator.saveSimulationResults  = true;
 Config.Simulator.savePictures           = true;
 
@@ -55,6 +59,10 @@ Config.Simulator.defaultModelFolderName = 'icubGazeboSim';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 disp('[runMatlabSimulator]: ready to start.')
+
+% generate a tag to identify the current simulation
+c = clock;
+Config.Simulator.savedDataTag = [num2str(c(4)),'_',num2str(c(5))];
 
 % add paths to the simulator core, utility functions and wrappers
 addpath(genpath('./core'))
@@ -78,9 +86,9 @@ if ~isempty(Config.Simulator.modelFolderName)
     
     % run the initModel.m, which contains the model configuration
     run(strcat(['app/',Config.Simulator.modelFolderName,'/initModel.m'])); 
-
-    % in case the visualizer is not available for the current model
-    % set the showSimulation variable to false
+    
+    % in case the visualizer is not available for the loaded model
+    % set the "showSimulation" variable to false
     if Config.Model.deactivateVisualizer
  
         Config.Simulator.showVisualizer = false;

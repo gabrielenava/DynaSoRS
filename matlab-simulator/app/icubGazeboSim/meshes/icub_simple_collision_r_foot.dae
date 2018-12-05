@@ -86,7 +86,7 @@
     </geometry>
   </library_geometries>
   <library_materials>
-    <material id="iCub_dark_grey-material" name="iCub_face_back">
+    <material id="iCub_dark_grey-material" name="iCub_dark_grey">
       <instance_effect url="#iCub_dark_grey-effect"/>
     </material>
   </library_materials>

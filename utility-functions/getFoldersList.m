@@ -30,8 +30,11 @@ function foldersList = getFoldersList(parentfolderName)
         % avoid the trivial folders '.' and '..'
         if ~strcmp(modelFolders(k).name,'.') && ~strcmp(modelFolders(k).name,'..')
         
-            foldersList{cont} = modelFolders(k).name; %#ok<AGROW>
-            cont = cont + 1;
+            if modelFolders(k).isdir
+                
+                foldersList{cont} = modelFolders(k).name; %#ok<AGROW>
+                cont = cont + 1;
+            end
         end
     end
 end

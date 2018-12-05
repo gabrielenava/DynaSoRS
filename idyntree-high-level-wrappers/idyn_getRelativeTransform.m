@@ -84,8 +84,7 @@ function frame1_H_frame2 = idyn_getRelativeTransform(KinDynModel,frame1Name,fram
                     end
                 end
             end   
-        end                         
-               
+        end                                       
         disp('[idyn_getRelativeTransform]: done.')     
     end
 end

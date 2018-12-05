@@ -11,8 +11,8 @@ function [demoFolderName,demoScriptName] = openSimulationMenu(Model,Simulator)
     %
     %                   - simulationList: [cell array of strings];
     %                   - demoFolderList: [cell array of strings];
-    %                   - defaultDemoFolder: [string];
     %                   - defaultSimulation: [string];
+    %                   - defaultDemoFolder: [string];
     %
     %          - Simulator: simulator-specific configuration parameters;
     %         
@@ -37,11 +37,11 @@ function [demoFolderName,demoScriptName] = openSimulationMenu(Model,Simulator)
     % open the GUI and select the desired simulation
     if ~Simulator.runDefaultSimulation
     
-        simulationsList       = Model.simulationList;
-        [simulationNumber, ~] = listdlg('PromptString','CHOOSE A SIMULATION:', ...
-                                        'ListString',simulationsList, ...
-                                        'SelectionMode','single', ...
-                                        'ListSize',[250 150]);                                
+        simulationList        = Model.simulationList;
+        [simulationNumber, ~] = listdlg('PromptString', 'Choose a simulation:', ...
+                                        'ListString', simulationList, ...
+                                        'SelectionMode', 'single', ...
+                                        'ListSize', [250 150]);                                
         if ~isempty(simulationNumber)
        
             demoFolderName = Model.demoFolderList{simulationNumber};

@@ -8,9 +8,9 @@
 %                     - Simulator: [struct];
 %                     - Model: [struct]; (created here)
 %
-%           For more information on the required fields inside
-%           each structure, refer to the documentation inside
-%           the "core" functions.
+%            For more information on the required fields inside
+%            each structure, refer to the description of the
+%            functions in the "core" folder.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Nov 2018

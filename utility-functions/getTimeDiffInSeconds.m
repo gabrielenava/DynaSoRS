@@ -31,5 +31,4 @@ function c_diff = getTimeDiffInSeconds(c_in,c_out)
     
     % difference in seconds
     c_diff = c_out-c_in;
-
 end
