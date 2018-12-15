@@ -6,7 +6,7 @@ function chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config)
     %                            fixed on ground). Joints torques are the
     %                            ones that compensate for gravity.
     %
-    %                            REQUIRED:
+    %                            REQUIRED VARIABLES:
     %
     %                            - Config: [struct] with fields:
     %
@@ -19,13 +19,13 @@ function chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config)
     %                            each structure, refer to the description of the
     %                            functions in the "core" folder.
     %
-    % FORMAT: chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config);
+    % FORMAT:  chiDot = forwardDynamicsGravityComp(t,chi,KinDynModel,Config);
     %
     % INPUTS:  - t: current integration time step;
     %          - chi: [2*ndof x 1] current robot state. Expected format:
     %                 chi = [jointVel; jointPos];
-    %          - KinDynModel: a structure containing the loaded model and additional info;
-    %          - Config: structure collecting all the configuration parameters;
+    %          - KinDynModel: [struct] contains the loaded model and additional info;
+    %          - Config: [struct] collects all the configuration parameters;
     %
     % OUTPUTS: - chiDot: [2*ndof x 1] current state derivative.
     %

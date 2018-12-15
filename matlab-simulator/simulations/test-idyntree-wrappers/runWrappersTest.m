@@ -2,7 +2,7 @@
 %                 just tests if the wrappers are not exiting with errors. 
 %                 Run the wrappers in DEBUG mode to test their soundness.
 %
-%                 REQUIRED:
+%                 REQUIRED VARIABLES:
 %
 %                 - Config: [struct] with fields:
 %

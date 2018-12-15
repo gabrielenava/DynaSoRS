@@ -31,6 +31,8 @@ function varargout = vectorDemux(vector,partitionTable)
     end
     
     % partition the input vector
+     sumPartitionTable = 0;
+     
     for k = 2:length(partitionTable)
        
         % zeros, non integer and negative elements are not allowed
@@ -38,7 +40,9 @@ function varargout = vectorDemux(vector,partitionTable)
             
             error('[vectorDemux]: the partition table contains an invalid element.');
         end
-        
-        varargout{k-1} = vector(1+partitionTable(k-1):partitionTable(k-1)+partitionTable(k)); %#ok<AGROW>
+       
+        % cumulate the values of the partition table
+        sumPartitionTable = sumPartitionTable + partitionTable(k-1);
+        varargout{k-1}    = vector(1+sumPartitionTable:sumPartitionTable+partitionTable(k)); %#ok<AGROW>
     end
 end        

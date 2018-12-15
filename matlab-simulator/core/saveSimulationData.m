@@ -6,7 +6,7 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
     %
     % FORMAT:  dataFileName = saveSimulationData(Visualization,Simulator,mode)
     %
-    % INPUTS:  - Visualization: plots-specific configuration parameters;
+    % INPUTS:  - Visualization: [struct] with plots-specific configuration parameters;
     %
     %                           REQUIRED FIELDS: 
     %
@@ -20,19 +20,19 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
     %                                                   the names specified
     %                                                   in the updatedVizVariableList;
     %
-    %          - Simulator: simulator-specific configuration parameters;
+    %          - Simulator: [struct] with simulator-specific configuration parameters;
     %
     %                       REQUIRED FIELDS: 
     %
     %                       - modelFolderName: [string] "init" mode only;
     %                       - savedDataTag; [string] "init" model only;
     %
-    %          - mode: either "init" to create the MAT file or "update" to
+    %          - mode: [string] either "init" to create the MAT file or "update" to
     %                  update the already existing file.
     %
-    % OUTPUTS: - dataFileName = a string specifying the name of the MAT
-    %                           file that has been created (mode = "init"). 
-    %                           If mode = "update", this output is empty.
+    % OUTPUTS: - dataFileName = [string] with the name of the MAT file
+    %                           that has been created (mode = "init"). If
+    %                           mode = 'update', this output is empty.
     %
     % Author : Gabriele Nava (gabriele.nava@iit.it)
     % Genova, Nov 2018

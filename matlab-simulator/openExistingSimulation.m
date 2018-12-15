@@ -1,7 +1,7 @@
 % OPENEXISTINGSIMULATION opens an existing simulation from MAT file and runs 
 %                        the visualization tools (if possible). 
 %
-%                        REQUIRED:
+%                        REQUIRED VARIABLES:
 %
 %                        - Config: [struct] with fields:
 %
@@ -78,11 +78,13 @@ else
             KinDynModel = idyn_loadReducedModel(Config.Model.jointList,Config.Model.baseLinkName,Config.Model.modelPath, ...
                                                 Config.Model.modelName,Config.Simulator.wrappersDebugMode);
     
+            % TODO: the loaded simulation may not use the visualization
+            %       menu. Avoid hard-coding.
             if Config.Simulator.showSimulationResults || Config.Simulator.showVisualizer
                 
                 % open the visualization menu
                 openVisualizationMenu(KinDynModel,Config.Visualization,Config.iDyntreeVisualizer, ...
-                                      Config.Simulator,Config.SimulationOutput);
+                                      Config.Simulator,Config.SimulationOutput,Config.Simulator.showSimulationResults,Config.Simulator.showVisualizer);
             end
  
             % remove paths

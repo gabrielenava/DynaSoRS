@@ -1,4 +1,4 @@
-# Matlab simulator
+# matlab-simulator
 
 Matlab simulator of rigid multi body systems dynamics, kinematics and control. 
 
@@ -14,26 +14,25 @@ Matlab simulator of rigid multi body systems dynamics, kinematics and control.
 
 In order to use the simulator, the following configuration files are required:
 
-- a urdf model of the system (e.g. [model.urdf](app/icubGazeboSim/model.urdf));
-- a Matlab script named [initModel.urdf](app/icubGazeboSim/initModel.m) which contains model-specific information such as the joints names, the chosen base link and so on. 
+- a **urdf model** of the system (e.g. [model.urdf](app/icubGazeboSim/model.urdf));
+- a Matlab script named `init_($robotName).m` (e.g. [init_icubGazeboSim](app/icubGazeboSim/init_icubGazeboSim.m)) which contains model-specific information such as the joints names, the chosen base link and so on. 
 
-Furthermore, in order to run a simulation with a given model, it is necessary to create an `init` file for each simulation inside the `app/robotName` folder.
+**Do not add information related to a specific simulation in the init file**. It is strongly suggested to create (if necessary) a separate `init` file for each simulation inside the `app/robotName` folder.
 
 ## Instruction
 
-To start the simulator, run the [runMatlabSimulator](runMatlabSimulator.m). After running the script, two menus will appear. 
+To start the simulator, run the [runMatlabSimulator](runMatlabSimulator.m) script. After running the script, two menus will appear. 
 
-- With the first menu, it will be possible to select the model to simulate. All the models folders inside the `app` folder are automatically added in the models list.
-- With the second menu, it will be possible to choose between different simulations. The simulations list depends on the loaded model, e.g. for the `icubGazeboSim` model the available simulations are:
+- With the first menu, it will be possible to select the model to simulate. All the **models folders** inside the `app` folder are automatically added in the models list.
+- With the second menu, it will be possible to choose between different simulations. The simulations list depends on the loaded model, e.g. for the `icubGazeboSim` model some of the available simulations are:
 
   - test-idyntree-wrappers (test)
   - gravity compensation (torque control)
-  - end-effector control through inverse kinematics (position control)
-  - momentum-based balancing control (torque control)
+  - momentum-based-control (torque control)
  
-  The first demo is a test of the iDyntree high level wrappers. The gravity compensation and IK demos consider the base link fixed on ground. The momentum-based control demo instead requires to specify  the list of links which are considered to be in contact with the environment. At the moment, only rigid contacts are allowed. The link in contact is assumed to be fixed, i.e. it has a constant pose w.r.t. the inertial frame. 
+The first demo is a test of the iDyntree high level wrappers. The gravity compensation considers the base link fixed on ground. The momentum-based control demo instead requires to specify  the list of links which are considered to be in contact with the environment. At the moment, only rigid contacts are allowed. The link in contact is assumed to be fixed, i.e. it has a constant pose w.r.t. the inertial frame. 
 
-It is possible to avoid opening the menus by setting to `TRUE` the variables `useDefaultModel` and/or `runDefaultSimulation` on top of the `runMatlabSimulator` and `initModel` scripts.
+It is possible to avoid opening the menus by setting to `TRUE` the variables `useDefaultModel` and/or `runDefaultSimulation` on top of the `runMatlabSimulator` and `init_($robotName)` scripts.
 
 ## Visualization
 

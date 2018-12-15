@@ -119,7 +119,7 @@ function [] = plotSimulationData(dataNameList,figureSettingsList,DataForVisualiz
                         % data on one figure with one single subplot
                         currentSubFigure          = 1;
                         totalSubFiguresSinglePlot = [1,1];
-                        
+
                         CurrentFig = generateSingle2DPlot(xAxisData,yAxisData,CurrentFigureSettings.Settings,[], ...
                                                           currentSubFigure,totalSubFiguresSinglePlot);
                         

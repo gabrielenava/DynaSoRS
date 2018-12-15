@@ -1,6 +1,6 @@
 % INITGRAVITYCOMPENSATION initializes the gravity compensation simulation.
 %
-%                         REQUIRED:
+%                         REQUIRED VARIABLES:
 %
 %                         - Config: [struct] with fields:
 %

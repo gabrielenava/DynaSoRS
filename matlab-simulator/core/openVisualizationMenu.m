@@ -1,15 +1,15 @@
-function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer,Simulator,SimulationOutput)
+function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer,Simulator,SimulationOutput,enableSimulationResults,enableVisualizer)
 
     % OPENVISUALIZATIONMENU opens a Matlab GUI that allows to select the 
     %                       available plots and other simulation results.
     %
-    % FORMAT:  [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer,Simulator,SimulationOutput)
+    % FORMAT:  [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer,Simulator,SimulationOutput,mode)
     %
     % INPUTS:  - KinDynModel: a structure containing the loaded model and 
     %                         additional info.
     %          - Visualization: plots-specific configuration parameters;
     %
-    %                           REQUIRED FIELDS: (if showSimulationResults = true)
+    %                           REQUIRED FIELDS: (if enableSimulationResults = true)
     %
     %                           - see also "plotSimulationData" 
     %                           - vizVariableList: [cell array of strings];        
@@ -18,7 +18,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     %
     %          - iDyntreeVisualizer: iDyntree visualizer-specific configuration parameters;
     %
-    %                                REQUIRED FIELDS: (if showVisualizer = true)
+    %                                REQUIRED FIELDS: (if enableVisualizer = true)
     %
     %                                - see "runVisualizer";
     %
@@ -26,20 +26,21 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     %
     %                       REQUIRED FIELDS: 
     %
-    %                       - showSimulationResults: [bool];
-    %                       - showVisualizer: [bool];
-    %                       - activateVideoMenu: [bool] (if showVisualizer = true);
-    %                       - see also "runVisualizer" (if showVisualizer = true);
-    %                       - see also "plotSimulationData" (if showSimulationResults = true);
+    %                       - activateVideoMenu: [bool] (if enableVisualizer = true);
+    %                       - see also "runVisualizer" (if enableVisualizer = true);
+    %                       - see also "plotSimulationData" (if enableSimulationResults = true);
     %
     %          - SimulationOutput: outcome of the simulation (used for the iDyntree visualizer).
     %
-    %                              REQUIRED FIELDS: (if showVisualizer = true)
+    %                              REQUIRED FIELDS: (if enableVisualizer = true)
     %
     %                              - jointPos: [ndof x nOfInterations] [double];
-    %                              - w_H_b: [16 x nOfInterations] [double];;
-    %                              - time: [1 x nOfInterations] [non-neg double];;
-    %                              - fixedTimeStep: [non-neg double];;
+    %                              - w_H_b: [16 x nOfInterations] [double];
+    %                              - time: [1 x nOfInterations] [non-neg double];
+    %                              - fixedTimeStep: [non-neg double];
+    %
+    %          - enableSimulationResults: [bool] enables the data plotting;
+    %          - enableVisualizer: [bool] enables the iDyntree visualizer.
     %
     % Author : Gabriele Nava (gabriele.nava@iit.it)
     % Genova, Nov 2018
@@ -51,7 +52,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
     figureSettingsList = {};
     cont = 1;
     
-    if Simulator.showSimulationResults
+    if enableSimulationResults
 
         % pre-process the visualization list by ignoring all the empty
         % and/or non-double or non-boolean variables
@@ -75,7 +76,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
         end
     end
     
-    if Simulator.showVisualizer
+    if enableVisualizer
         
         visualizationList{end+1} = 'iDyntree visualizer';
     end
@@ -131,7 +132,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
                 runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)             
             end
             
-            if Simulator.showSimulationResults
+            if enableSimulationResults
                   
                 dataNameList = {};
                 UpdatedFigureSettingsList = {};

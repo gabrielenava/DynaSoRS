@@ -1,11 +1,11 @@
 % INITVISUALIZATION initializes the visualization settings for all simulations.
 %
-%                   REQUIRED:
+%                   REQUIRED VARIABLES:
 %
 %                   - Config: [struct] with fields:
 %
-%                              - Visualization: [struct]; (created here)
-%                              - Simulator; [struct].
+%                             - Visualization: [struct]; (created here)
+%                             - Simulator; [struct].
 %
 %                   For more information on the required fields inside
 %                   each structure, refer to the description of the

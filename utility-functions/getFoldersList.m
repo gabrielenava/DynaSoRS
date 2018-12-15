@@ -5,10 +5,10 @@ function foldersList = getFoldersList(parentfolderName)
     %
     % FORMAT:  foldersList = getFoldersList(parentfolderName)
     %
-    % INPUTS:  - parentfolderName: the name of the parent folder;
+    % INPUTS:  - parentfolderName: [string] the name of the parent folder;
     %
-    % OUTPUTS: - foldersList: cell array containing the names of the child
-    %                         folders.
+    % OUTPUTS: - foldersList: [cell array of strings] containing the names 
+    %                         of the child folders.
     %
     % Author : Gabriele Nava (gabriele.nava@iit.it)
     % Genova, Nov 2018
@@ -18,21 +18,22 @@ function foldersList = getFoldersList(parentfolderName)
     % check if the parent folder exists
     if ~exist(parentfolderName,'dir')
         
-        error('[createFoldersList]: the parent folder does not exist.')
+        error('[getFoldersList]: parent folder not found.')
     end
     
-    modelFolders = dir(parentfolderName);
+    childFolders = dir(parentfolderName);
     foldersList  = {};
     cont         = 1;
 
-    for k = 1:size(modelFolders,1)
+    for k = 1:size(childFolders,1)
     
         % avoid the trivial folders '.' and '..'
-        if ~strcmp(modelFolders(k).name,'.') && ~strcmp(modelFolders(k).name,'..')
+        if ~strcmp(childFolders(k).name,'.') && ~strcmp(childFolders(k).name,'..')
         
-            if modelFolders(k).isdir
+            % avoid non-folders
+            if childFolders(k).isdir
                 
-                foldersList{cont} = modelFolders(k).name; %#ok<AGROW>
+                foldersList{cont} = childFolders(k).name; %#ok<AGROW>
                 cont = cont + 1;
             end
         end

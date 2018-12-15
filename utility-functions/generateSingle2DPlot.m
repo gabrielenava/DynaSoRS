@@ -225,7 +225,7 @@ function FigureStruct = generateSingle2DPlot(xAxis,yAxis,Settings,figureNumber,c
         
         % user-defined settings
         if ~isempty(legendList)
-                        
+                 
             leg = legend(legendList,'Location','best');
             
             % default settings for the legend.
