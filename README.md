@@ -26,7 +26,7 @@ sudo apt-get install libirrlicht-dev
 
 ## Installation and usage
 
-**If all the required dependencies are correctly installed and configured**, it is just necessary to clone this repository on your pc. 
+If all the required dependencies are correctly installed and configured, it is just necessary to clone this repository on your pc. 
 
 ## Mantainer
 
