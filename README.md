@@ -14,9 +14,9 @@ The code has been developed and tested on Ubuntu 18.04.
 
 - To use the [wrappers associated with the iDyntree visualizer](wrappers/idyntree-high-level-wrappers/idyn_initializeVisualizer.m), it is also required to install the `Irrlicht` library (see also this [README](wrappers/idyntree-high-level-wrappers#visualizer-class)). To install the library on Ubuntu 18.04, just run on a terminal:
 
-```
-sudo apt-get install libirrlicht-dev
-```
+   ```
+   sudo apt-get install libirrlicht-dev
+   ```
 
 - The [WBC-library-wrappers](wrappers/WBC-library-wrappers) require an additional dependency on the [whole-body-controllers-library](https://github.com/robotology/whole-body-controllers). Follow the instructions in the [whole-body-controllers README](https://github.com/robotology/whole-body-controllers/blob/master/README.md#installation-and-usage).
 
