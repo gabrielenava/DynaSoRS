@@ -9,4 +9,4 @@ Matlab functions that support the simulator. They can be used also as standalone
 - [sec2hms](sec2hms.m)
 - [vectorDemux](vectorDemux.m)
 - [generateSingle2DPlot](generateSingle2DPlot.m)
-- [generateMultiple2DPlot](generateMultiple2DPlot.m)
+- [generateMultiple2DPlots](generateMultiple2DPlots.m)
