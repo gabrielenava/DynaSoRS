@@ -30,6 +30,7 @@ build/
 
 # Simulink Code Generation
 slprj/
+*.slxc
 
 # Matlab binary .mat files
 *.mat

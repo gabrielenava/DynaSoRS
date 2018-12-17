@@ -1,18 +1,14 @@
 # idyntree high-level-wrappers
 
-A collection of Matlab functions that wraps the functionalities of the iDyntree class `KinDynComputations`.
+A collection of Matlab functions that wraps the functionalities of (mainly) the iDyntree class `KinDynComputations`. For further information on the single wrapper, refer to the description included in each function.
 
-## List of available wrappers
+## KinDynComputations class
 
-For further information on the single wrapper, refer to the description included in each function.
-
-### KinDynComputations class
-
-#### Load the reduced model
+### Load the reduced model
 
 - [idyn_loadReducedModel](idyn_loadReducedModel.m)
 
-#### Retrieve data from the model
+### Retrieve data from the model
 
 - [idyn_getJointPos](idyn_getJointPos.m)
 - [idyn_getJointVel](idyn_getJointVel.m)
@@ -38,14 +34,14 @@ For further information on the single wrapper, refer to the description included
 - [idyn_getCenterOfMassJacobian](idyn_getCenterOfMassJacobian.m) 
 - [idyn_getCenterOfMassVelocity](idyn_getCenterOfMassVelocity.m) 
  
-#### Set the model-related quantities
+### Set the model-related quantities
  
 - [idyn_setJointPos](idyn_setJointPos.m) 
 - [idyn_setFrameVelocityRepresentation](idyn_setFrameVelocityRepresentation.m)
 - [idyn_setFloatingBase](idyn_setFloatingBase.m) 
 - [idyn_setRobotState](idyn_setRobotState.m)
 
-### Visualizer class
+## Visualizer class
 
 Not proper wrappers, they wrap more than one method of the class each. **Requirements:** compile iDyntree with Irrlicht `(IDYNTREE_USES_IRRLICHT = ON)`.
 
