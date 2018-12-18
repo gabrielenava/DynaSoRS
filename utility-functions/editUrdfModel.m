@@ -33,7 +33,7 @@ function [] = editUrdfModel(oldModelPath, oldModelName, newModelPath, newModelNa
         
         if ~isempty(index_start_absolute_path)
             
-            cell_urdf{1}{k} = [cell_urdf{1}{k}(index_start_absolute_path-1), newText, cell_urdf{1}{k}(length(textToReplace)-1)];
+            cell_urdf{1}{k} = [cell_urdf{1}{k}(1:index_start_absolute_path-1), newText, cell_urdf{1}{k}(index_start_absolute_path+length(textToReplace)-1:end)];
             somethingHasBeenModified = true;
         end
     end
