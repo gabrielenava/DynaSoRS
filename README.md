@@ -10,9 +10,9 @@ The code has been developed and tested on Ubuntu 18.04.
 
 - [Matlab](https://it.mathworks.com/products/matlab.html), tested only with `R2018a`.
 
-- The simulator is based on the [iDyntree](https://github.com/robotology/idyntree) library. To install `iDyntree` and its dependencies, refer to the [iDyntree README](https://github.com/robotology/idyntree#installation). When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`. In order to use the [idyntree-high-level-wrappers](wrappers/idyntree-high-level-wrappers), add to the Matlab path the `path/where/the/iDyntree/mex/file/is`. 
+- The simulator is based on the [iDyntree](https://github.com/robotology/idyntree) library. To install `iDyntree` and its dependencies, refer to the [iDyntree README](https://github.com/robotology/idyntree#installation). When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`. In order to use the [iDyntree bindings for Matlab](https://github.com/robotology/idyntree/tree/master/bindings/matlab), add to the Matlab path the `path/where/the/iDyntree/generated/mex/file/is`. 
 
-- To use the [wrappers associated with the iDyntree visualizer](wrappers/idyntree-high-level-wrappers/idyn_initializeVisualizer.m), it is also required to install the `Irrlicht` library (see also this [README](wrappers/idyntree-high-level-wrappers#visualizer-class)). To install the library on Ubuntu 18.04, just run on a terminal:
+- To use the [iDyntree visualizer](https://github.com/robotology/idyntree/blob/master/src/visualization/src/Visualizer.cpp), it is also required to install the [Irrlicht](http://irrlicht.sourceforge.net/) library. To install the library on Ubuntu 18.04, just run on a terminal:
 
    ```
    sudo apt-get install libirrlicht-dev
