@@ -132,7 +132,14 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     % compute the simulator real time factor
     c_out           = clock;
     c_diff          = getTimeDiffInSeconds(c_in,c_out);
-    expectedEndTime = time(end); %[s]
+ 
+    if length(time) > 1
+        
+        expectedEndTime = time(end)-time(1); % normalize
+    else
+        expectedEndTime = time;
+    end
+
     realTimeFactor  = expectedEndTime/c_diff;
     
     disp(['[runVisualizer]: simulation real time factor: ', num2str(realTimeFactor),'.']);
