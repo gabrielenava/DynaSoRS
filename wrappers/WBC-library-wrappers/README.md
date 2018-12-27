@@ -13,3 +13,6 @@ See the description inside each **original** WBC function for more details.
 - [roty](roty.m)
 - [rotz](rotz.m)
 - [skew](skew.m)
+- [fromPosQuatToTransfMatr](fromPosQuatToTransfMatr.m)
+- [fromTransfMatrixToPosQuat](fromTransfMatrixToPosQuat.m)
+- [quaternionDerivative](quaternionDerivative.m)
