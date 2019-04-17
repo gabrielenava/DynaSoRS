@@ -8,6 +8,5 @@ Matlab functions that support the simulator. They can be used also as standalone
 - [getFoldersList](getFoldersList.m)
 - [getTimeDiffInSeconds](getTimeDiffInSeconds.m)
 - [sec2hms](sec2hms.m)
-- [vectorDemux](vectorDemux.m)
 - [generateSingle2DPlot](generateSingle2DPlot.m)
 - [generateMultiple2DPlots](generateMultiple2DPlots.m)
