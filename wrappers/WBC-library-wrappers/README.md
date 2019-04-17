@@ -16,4 +16,3 @@ See the description inside each **original** WBC function for more details.
 - [fromPosQuatToTransfMatr](fromPosQuatToTransfMatr.m)
 - [fromTransfMatrixToPosQuat](fromTransfMatrixToPosQuat.m)
 - [quaternionDerivative](quaternionDerivative.m)
-- [vectorDemux](vectorDemux.m)
