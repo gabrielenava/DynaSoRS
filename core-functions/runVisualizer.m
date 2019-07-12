@@ -76,7 +76,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     end
 
     % start the visualizer
-    Visualizer               = iDyntreeWrappers.initializeVisualizer(KinDynModel,iDyntreeVisualizer.debug);
+    Visualizer               = iDynTreeWrappers.initializeVisualizer(KinDynModel,iDyntreeVisualizer.debug);
 
     % user defined visualization options
     cameraPos                = iDyntreeVisualizer.cameraPos;
@@ -84,7 +84,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     lightDir                 = iDyntreeVisualizer.lightDir;
     disableViewInertialFrame = iDyntreeVisualizer.disableViewInertialFrame;
 
-    iDyntreeWrappers.visualizerSetup(Visualizer,disableViewInertialFrame,lightDir,cameraPos,cameraTarget);
+    iDynTreeWrappers.visualizerSetup(Visualizer,disableViewInertialFrame,lightDir,cameraPos,cameraTarget);
     
     % compute simulator real time factor
     c_in = clock;
@@ -107,7 +107,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
         end
             
         % update the visualizer
-        iDyntreeWrappers.updateVisualizer(Visualizer,KinDynModel,jointPos_viz,w_H_b_viz);
+        iDynTreeWrappers.updateVisualizer(Visualizer,KinDynModel,jointPos_viz,w_H_b_viz);
         
         % create a .mp4 video from of the iDyntree simulation
         if createVideo 
