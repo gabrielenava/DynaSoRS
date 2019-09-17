@@ -101,7 +101,12 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
         end
         if size(jointPos,2) == 1
             
-            jointPos_viz = jointPos(:,1); 
+            jointPos_viz = jointPos(:,1);
+        
+        % compatibility in case of single rigid body    
+        elseif isempty(jointPos)
+            
+            jointPos_viz = [];
         else
             jointPos_viz = jointPos(:,i); 
         end
