@@ -20,7 +20,7 @@ The code has been developed and tested on Ubuntu 18.04 LTS.
   sudo apt-get install libirrlicht-dev
   ```
 
-- The [WBC-library-wrappers](wrappers/WBC-library-wrappers) require an additional dependency on the [whole-body-controllers-library](https://github.com/robotology/whole-body-controllers). Follow the instructions in the [whole-body-controllers README](https://github.com/robotology/whole-body-controllers/blob/master/README.md#installation-and-usage).
+- **Optional**: an external library of Matlab function for multi-body system dynamics, kinematics and control is available inside [whole-body-controllers](https://github.com/robotology/whole-body-controllers). To download the library, follow the instructions in the [whole-body-controllers README](https://github.com/robotology/whole-body-controllers/blob/master/README.md#installation-and-usage).
 
 
 ## Installation and usage
