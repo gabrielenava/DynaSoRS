@@ -1,41 +1,59 @@
-# matlab-multi-body-sim_core
+# mbs_core
 
-This repository contains the `core` of the `matlab-multi-body-sim` simulator of dynamics, kinematics and control of rigid multi-body systems.
+This repository contains the `core` functionalities of the `multi-body simulator` (MBS) of dynamics, kinematics and control of multi-body systems.
+
 
 ## Operating system
 
-The code has been developed and tested on Ubuntu 18.04.
+The code has been developed and tested on Ubuntu 18.04 LTS.
+
 
 ## Dependencies
 
 - [Matlab](https://it.mathworks.com/products/matlab.html), tested only with `R2018a`.
 
-- The simulator is based on the [iDyntree](https://github.com/robotology/idyntree) library. To install `iDyntree` and its dependencies, refer to the [iDyntree README](https://github.com/robotology/idyntree#installation). When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`. In order to use the [iDyntree bindings](https://github.com/robotology/idyntree/tree/master/bindings/matlab), and the [iDyntree wrappers](https://github.com/robotology/idyntree/tree/devel/bindings/matlab/+iDynTreeWrappers) for Matlab, add to the Matlab path the `path/where/the/iDyntree/generated/mex/file/is`.
+- The MBS simulator is based on the [iDyntree](https://github.com/robotology/idyntree) library. To install `iDyntree` and its dependencies, refer to the [iDyntree README](https://github.com/robotology/idyntree#installation). When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`. In order to use the [iDyntree bindings](https://github.com/robotology/idyntree/tree/master/bindings/matlab), and the [iDyntree wrappers](https://github.com/robotology/idyntree/tree/master/bindings/matlab/+iDynTreeWrappers) for Matlab, add to the Matlab path the `path/where/the/iDyntree/generated/mex/file/is`.
 
 - To use the [iDyntree visualizer](https://github.com/robotology/idyntree/blob/master/src/visualization/src/Visualizer.cpp), it is also required to install the [Irrlicht](http://irrlicht.sourceforge.net/) library. To install the library on Ubuntu 18.04, just run on a terminal:
 
-   ```
-   sudo apt-get install libirrlicht-dev
-   ```
+  ```
+  sudo apt-get install libirrlicht-dev
+  ```
 
 - The [WBC-library-wrappers](wrappers/WBC-library-wrappers) require an additional dependency on the [whole-body-controllers-library](https://github.com/robotology/whole-body-controllers). Follow the instructions in the [whole-body-controllers README](https://github.com/robotology/whole-body-controllers/blob/master/README.md#installation-and-usage).
 
+
 ## Installation and usage
 
-This repository can be used in two different ways:
+This repository can be installed in two different ways:
 
-- `git clone` or download this repository as standalone library. For developing an application based on this library, you may write your code following this [templates](https://github.com/gabrielenava/matlab-multi-body-sim_app/templates). This approach does not necessarily require to `install` the repository, but the user must add (temporarily or permanently) the `$PATH-TO-MULTI-BODY-SIM_CORE` to the [Matlab path](https://www.mathworks.com/help/matlab/matlab_env/what-is-the-matlab-search-path.html). **WARNING!** If there are other functions with the same name in your Matlab path, unexpected things may happen!
+- `git clone` or download this repository as standalone library. **Warning**: do not directly add the MBS library functions to the [Matlab path](https://www.mathworks.com/help/matlab/matlab_env/what-is-the-matlab-search-path.html). Instead, `install` this repository with `cmake`. Use the following commands after opening a terminal in the MBS source folder:
 
-- Dowload this repository using the [matlab-multi-body-sim_superbuild](https://github.com/gabrielenava/matlab-multi-body-sim_superbuild) **(suggested)**. In this way, there will be the possibility to use already existing [models](https://github.com/gabrielenava/matlab-multi-body-sim_models) and [simulations](https://github.com/gabrielenava/matlab-multi-body-sim_app). Follow the instructions in the [superbuild README](https://github.com/gabrielenava/matlab-multi-body-sim_superbuild/blob/master/README.md). The `superbuild` **will install** (copy and paste) all the functions of this repo inside the `$PATH-TO-SUPERBUILD/build/install` folder. This results in a cleaner installation as the [standard simulations](https://github.com/gabrielenava/matlab-multi-body-sim_app) by default assume the path to the `core` files to be `$PATH-TO-SUPERBUILD/build/install`.
- 
+  ```
+  mkdir build
+  cd build
+  ccmake ..
+  ```
+
+In the cmake GUI that will open, set the `CMAKE_INSTALL_PREFIX` to your desired installation folder. Then, run `make install`.
+
+- Dowload this repository using the [mbs_superbuild](https://github.com/gabrielenava/mbs_superbuild) **(suggested)**. In this way, there will be also the possibility to use already existing [models](https://github.com/gabrielenava/mbs_models) and [simulations](https://github.com/gabrielenava/mbs_app). For installation, follow the instructions in the [mbs_superbuild README](https://github.com/gabrielenava/mbs_superbuild/blob/master/README.md). 
+
+In both installation cases, it is required to add to the Matlab path the **parent** directory of the folder `+mbs` that will be installed in your cmake installation path. This can be done **manually** and **permanently** through Matlab settings. If the repo is installed with the `mbs_superbuild` the paths can be also added by running only once the script [startup_mbs.m]() that is generated with cmake in the superbuild `build` folder. In this second case, the path will be loaded **only** if Matlab is started from the `userpath` folders (usually `~/Documents/MATLAB`).
+
+**Usage**: to call any `mbs_core` function inside Matlab, you need to specify the `mbs` prefix as follows: `callToTheFunction = mbs.nameOfMyMbsFunction(**arguments**)`.
+
+
 ## Structure of the repo
 
 - **core-functions**: the Matlab functions constituting the `core` of the simulator. [[README]](core-functions/README.md)
 
 - **utility-functions**: an internal library of utility functions. [[README]](utility-functions/README.md)
 
-- **wrappers**: the available `whole-body-controllers` methods wrapped in Matlab functions. [[README]](wrappers/README.md)
+- **templates**: templates for a better understanding of how to use the library. [[README]](templates/README.md)
+
 
 ## Mantainer
 
 Gabriele Nava ([@gabrielenava](https://github.com/gabrielenava)).
+

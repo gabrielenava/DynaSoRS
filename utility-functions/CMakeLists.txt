@@ -1,3 +1,4 @@
-# Install all files 
-install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX})
+# Install all files
+file(GLOB utility_files "*.m")
+install(FILES ${utility_files} DESTINATION ${CMAKE_INSTALL_PREFIX}/+mbs)
 
