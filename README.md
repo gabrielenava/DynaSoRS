@@ -1,4 +1,4 @@
-# mbs_core
+# Multi-Body Simulator (MBS) Core
 
 This repository contains the `core` functionalities of the `multi-body simulator` (MBS) of dynamics, kinematics and control of multi-body systems.
 
@@ -39,7 +39,7 @@ In the cmake GUI that will open, set the `CMAKE_INSTALL_PREFIX` to your desired 
 
 - Dowload this repository using the [mbs_superbuild](https://github.com/gabrielenava/mbs_superbuild) **(suggested)**. In this way, there will be also the possibility to use already existing [models](https://github.com/gabrielenava/mbs_models) and [simulations](https://github.com/gabrielenava/mbs_app). For installation, follow the instructions in the [mbs_superbuild README](https://github.com/gabrielenava/mbs_superbuild/blob/master/README.md). 
 
-In both installation cases, it is required to add to the Matlab path the **parent** directory of the folder `+mbs` that will be installed in your cmake installation path. This can be done **manually** and **permanently** through Matlab settings. If the repo is installed with the `mbs_superbuild` the paths can be also added by running only once the script [startup_mbs.m]() that is generated with cmake in the superbuild `build` folder. In this second case, the path will be loaded **only** if Matlab is started from the `userpath` folders (usually `~/Documents/MATLAB`).
+In both installation cases, it is required to add to the Matlab path the **parent** directory of the folder `+mbs` that will be installed in your cmake installation path. This can be done **manually** and **permanently** through Matlab settings. If the repo is installed with the `mbs_superbuild` the paths can be also added by running only once the script [startup_mbs.m](https://github.com/gabrielenava/mbs_superbuild/blob/master/cmake/templates/startup_mbs.m.in) that is generated with cmake in the superbuild `build` folder. In this second case, the path will be loaded **only** if Matlab is started from the `userpath` folders (usually `~/Documents/MATLAB`).
 
 **Usage**: to call any `mbs_core` function inside Matlab, you need to specify the `mbs` prefix as follows: `callToTheFunction = mbs.nameOfMyMbsFunction(**arguments**)`.
 
