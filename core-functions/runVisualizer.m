@@ -28,11 +28,16 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     %
     %                                REQUIRED FIELDS: 
     %
-    %                                - debug: [bool];
-    %                                - cameraPos: [3 x 1] [double];   
-    %                                - cameraTarget: [3 x 1] [double];
-    %                                - lightDir: [3 x 1] [double];
-    %                                - disableViewInertialFrame: [bool];
+    %                                    meshesPath         = [string];      
+    %                                    color              = [vector of doubles];            
+    %                                    material           = [string];       
+    %                                    transparency       = [double];   
+    %                                    debug              = [boolean];           
+    %                                    view               = [vector of doubles];              
+    %                                    groundOn           = [boolean];         
+    %                                    groundColor        = [vector of doubles];       
+    %                                    groundTransparency = [double];
+    %                                    groundFrame        = [string];
     %
     %          - Simulator: simulator-specific configuration parameters;
     %
@@ -42,7 +47,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     %                       - savedDataTag: [string];
     %
     % Author : Gabriele Nava (gabriele.nava@iit.it)
-    % Genova, Nov 2018
+    % Genova, Nov 2018; Modified Sept. 2020
 
     %% ------------Initialization----------------
 
@@ -75,68 +80,100 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
         disp('[runVisualizer]: WARNING: creating the video will considerably slow down the simulation!');
     end
 
-    % start the visualizer
-    Visualizer               = iDynTreeWrappers.initializeVisualizer(KinDynModel,iDyntreeVisualizer.debug);
-
     % user defined visualization options
-    cameraPos                = iDyntreeVisualizer.cameraPos;
-    cameraTarget             = iDyntreeVisualizer.cameraTarget;
-    lightDir                 = iDyntreeVisualizer.lightDir;
-    disableViewInertialFrame = iDyntreeVisualizer.disableViewInertialFrame;
+    meshesPath         = iDyntreeVisualizer.meshesPath;      
+    color              = iDyntreeVisualizer.color;            
+    material           = iDyntreeVisualizer.material;       
+    transparency       = iDyntreeVisualizer.transparency;   
+    debug              = iDyntreeVisualizer.debug;           
+    view               = iDyntreeVisualizer.view;              
+    groundOn           = iDyntreeVisualizer.groundOn;         
+    groundColor        = iDyntreeVisualizer.groundColor;       
+    groundTransparency = iDyntreeVisualizer.groundTransparency;
+    groundFrame        = iDyntreeVisualizer.groundFrame; 
+    frameRate          = iDyntreeVisualizer.frameRate;
 
-    iDynTreeWrappers.visualizerSetup(Visualizer,disableViewInertialFrame,lightDir,cameraPos,cameraTarget);
+    % set initial pose
+    w_H_b_viz = reshape(w_H_b(:,1),4,4);
+
+    % compatibility with single rigid body
+    if isempty(jointPos)
+            
+        jointPos_viz = [];
+    else
+        jointPos_viz = jointPos(:,1); 
+    end
+    
+    iDynTreeWrappers.setRobotState(KinDynModel,w_H_b_viz,jointPos_viz,zeros(6,1),zeros(size(jointPos_viz)),[0,0,-9.81]);
+      
+    [Visualizer,~]   = iDynTreeWrappers.prepareVisualization(KinDynModel, meshesPath, 'color', color, 'material', material, ...
+                                                            'transparency', transparency, 'debug', debug, 'view', view, ...
+                                                            'groundOn', groundOn, 'groundColor', groundColor, ...
+                                                            'groundTransparency', groundTransparency, 'groundFrame', groundFrame);
+    % initialize video writer                                                   
+    if createVideo 
+                
+        filename = strcat('./MEDIA/img',sprintf('%04d',1),'.png');      
+        saveas(gcf,filename);
+    end
     
     % compute simulator real time factor
     c_in = clock;
 
-    for i = 1:length(time)
+    if length(time) > 1
+        
+        % update visualizer if time is not a scalar
+        for i = 2:length(time)
 
-        tic
+            tic
        
-        if size(w_H_b,2) == 1
+            if size(w_H_b,2) == 1
            
-            w_H_b_viz    = reshape(w_H_b(:,1),4,4);
-        else    
-            w_H_b_viz    = reshape(w_H_b(:,i),4,4);
+                w_H_b_viz    = reshape(w_H_b(:,1),4,4);
+            else    
+                w_H_b_viz    = reshape(w_H_b(:,i),4,4);
+            end
+            if size(jointPos,2) == 1
+            
+                jointPos_viz = jointPos(:,1);
+        
+            % compatibility in case of single rigid body    
+            elseif isempty(jointPos)
+            
+                jointPos_viz = [];
+            else
+                jointPos_viz = jointPos(:,i); 
+            end
+
+            % update the visualizer
+            iDynTreeWrappers.setRobotState(KinDynModel,w_H_b_viz,jointPos_viz,zeros(6,1),zeros(size(jointPos_viz)),[0,0,-9.81]);
+            iDynTreeWrappers.updateVisualization(KinDynModel,Visualizer);
+        
+            % create a .mp4 video from the iDyntree simulation
+            if createVideo 
+                
+                filename = strcat('./MEDIA/img',sprintf('%04d',i),'.png');      
+                saveas(gcf,filename);       
+            end 
+        
+            t = toc;
+        
+            if i < length(time)
+            
+                pause(max(0,time(i+1)-time(i)-t))
+            end 
         end
-        if size(jointPos,2) == 1
-            
-            jointPos_viz = jointPos(:,1);
-        
-        % compatibility in case of single rigid body    
-        elseif isempty(jointPos)
-            
-            jointPos_viz = [];
-        else
-            jointPos_viz = jointPos(:,i); 
-        end
-            
-        % update the visualizer
-        iDynTreeWrappers.updateVisualizer(Visualizer,KinDynModel,jointPos_viz,w_H_b_viz);
-        
-        % create a .mp4 video from of the iDyntree simulation
-        if createVideo 
-            filename = strcat('./MEDIA/img',sprintf('%04d',i),'.png');         
-            Visualizer.viz.drawToFile(filename);         
-        end 
-        
+    else
+        % the visualizer is used to just show a static system pose for 
+        % the amount of time specified in the "time" variable
+        tic
         t = toc;
-        
-        if i < length(time)
-            
-            pause(max(0,time(i+1)-time(i)-t))
-            
-        elseif length(time) == 1
-            
-            % the visualizer is used to just show a static system pose for 
-            % the amount of time specified in the "time" variable
-            pause(max(0,time-t))
-        end       
-    end  
-    
+        pause(max(0,time-t))
+    end
+      
     % compute the simulator real time factor
     c_out           = clock;
-    c_diff          = getTimeDiffInSeconds(c_in,c_out);
+    c_diff          = mbs.getTimeDiffInSeconds(c_in,c_out);
  
     if length(time) > 1
         
@@ -153,7 +190,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
         
         videoName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];     
 
-        command   = strcat('ffmpeg -framerate 60 -i ./MEDIA/img%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p ./MEDIA/',videoName,'.mp4'); 
+        command   = ['ffmpeg -framerate ', num2str(frameRate), ' -i ./MEDIA/img%04d.png ./MEDIA/',videoName,'.mp4']; 
         [~, ~]    = system(command);
 
         disp(['[runVisualizer]: video ',Simulator.modelFolderName,'_',Simulator.savedDataTag,'.mp4 created. Removing images...']);      

@@ -120,17 +120,17 @@ function [] = plotSimulationData(dataNameList,figureSettingsList,DataForVisualiz
                         currentSubFigure          = 1;
                         totalSubFiguresSinglePlot = [1,1];
 
-                        CurrentFig = generateSingle2DPlot(xAxisData,yAxisData,CurrentFigureSettings.Settings,[], ...
-                                                          currentSubFigure,totalSubFiguresSinglePlot);
+                        CurrentFig = mbs.generateSingle2DPlot(xAxisData,yAxisData,CurrentFigureSettings.Settings,[], ...
+                                                              currentSubFigure,totalSubFiguresSinglePlot);
                         
                     % the y-axis data will be plot in multiple figures
                     % and/or subfigures, and eventually re-plotted over
                     % already existing figures
                     elseif strcmp(CurrentFigureSettings.Mode, 'multiplePlot')
                         
-                        FigureData = generateMultiple2DPlots(xAxisData,yAxisData,CurrentFigureSettings.numOfFigures,CurrentFigureSettings.numOfSubFigures, ...
-                                                             CurrentFigureSettings.totalSubFiguresSinglePlot,CurrentFigureSettings.legendList, ...
-                                                             OldFigureData, CurrentFigureSettings.Settings,CurrentFigureSettings.modeMultiplePlot);              
+                        FigureData = mbs.generateMultiple2DPlots(xAxisData,yAxisData,CurrentFigureSettings.numOfFigures,CurrentFigureSettings.numOfSubFigures, ...
+                                                                 CurrentFigureSettings.totalSubFiguresSinglePlot,CurrentFigureSettings.legendList, ...
+                                                                 OldFigureData, CurrentFigureSettings.Settings,CurrentFigureSettings.modeMultiplePlot);              
                         % list of current figures 
                         CurrentFig    = FigureData.FigureStructList;
                         OldFigureData = FigureData;           

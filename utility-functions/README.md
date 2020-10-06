@@ -4,7 +4,6 @@ Matlab functions that support the simulator. They can be used also as standalone
 
 ## List of available functions
 
-- [editUrdfModel](editUrdfModel.m)
 - [getFoldersList](getFoldersList.m)
 - [getTimeDiffInSeconds](getTimeDiffInSeconds.m)
 - [sec2hms](sec2hms.m)

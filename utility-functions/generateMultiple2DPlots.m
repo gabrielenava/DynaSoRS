@@ -116,7 +116,7 @@ function FigureData = generateMultiple2DPlots(xAxis,yAxis,numOfFigures,numOfSubF
                         % deactivate the legendlist
                         SettingsSinglePlot.legendList = {};
                         
-                        generateSingle2DPlot(xAxis,yAxis(counter,:),SettingsSinglePlot,FigureStruct.Number,i,subFiguresPatternSinglePlot);
+                        mbs.generateSingle2DPlot(xAxis,yAxis(counter,:),SettingsSinglePlot,FigureStruct.Number,i,subFiguresPatternSinglePlot);
                                                 
                         % use the legendList here
                         if ~isempty(legendList)
@@ -212,7 +212,7 @@ function FigureData = generateMultiple2DPlots(xAxis,yAxis,numOfFigures,numOfSubF
                         % deactivate the legendlist
                         SettingsSinglePlot.legendList = {};
                                            
-                        generateSingle2DPlot(xAxis,yAxis(counter,:),SettingsSinglePlot,figureNumbersList(k),i,subFiguresPatternSinglePlot);
+                        mbs.generateSingle2DPlot(xAxis,yAxis(counter,:),SettingsSinglePlot,figureNumbersList(k),i,subFiguresPatternSinglePlot);
                         
                         % use the legendList here
                         if ~isempty(legendList)

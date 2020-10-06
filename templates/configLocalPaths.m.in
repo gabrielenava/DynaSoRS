@@ -1,0 +1,90 @@
+function pathToModel = configLocalPaths(Simulator,action)
+
+    % CONFIGLOCALPATHS configures the local paths to be used by the simulator 
+    %                  in order to point the folders where the required 
+    %                  libraries and models are.
+    %
+    % FORMAT:  pathToModel = configLocalPaths(Simulator, action)
+    %
+    % INPUTS:  action    = [string]: 'add' or 'remove' path;
+    %          Simulator = [struct]: with fields:
+    %                                - externalSourcesFoldersList [cell array]
+    %                                - userDefinedFoldersList [cell array]    
+    %                                - modelFolderName [string]
+    %
+    % OUTPUTS: pathToModel = [string] path to the model (used in the iDyntree
+    %                                 visualizer function)
+    %
+    % Author: Gabriele Nava (gabriele.nava@iit.it)
+    % Genova, Dec 2018; Modified Sept. 2020
+    
+    %% ------------Initialization----------------  
+    installDir       = '@CMAKE_INSTALL_PREFIX@';
+    pathToModel      = [installDir,'/models/',Simulator.modelFolderName,'/'];
+    pathToSource     = '@CMAKE_CURRENT_SOURCE_DIR@';
+    pathToSuperbuild = pathToSource(1:end-27);
+
+    if strcmp(pathToSuperbuild(end-14:end-1), 'mbs_superbuild')
+
+        pathToExternal = [pathToSuperbuild,'external/'];
+    else
+        error('[configLocalPaths]: at the moment, this function MUST be used with mbs_superbuild installation!')
+    end
+
+    switch action
+        
+        case 'add'
+            
+            % add user-defined paths
+            if ~isempty(Simulator.userDefPathsList)
+        
+                for k = 1:length(Simulator.userDefPathsList)
+            
+                    addpath(genpath(Simulator.userDefPathsList{k}));
+                end
+            end
+            
+            % add path to models
+            addpath(pathToModel)
+            
+            % add path to the "external" sources, if there are any
+            if ~isempty(Simulator.extSourcesFoldersList)
+        
+                for k = 1:length(Simulator.extSourcesFoldersList)
+            
+                    addpath(genpath([pathToExternal,Simulator.extSourcesFoldersList{k}]));
+                end
+            end
+            
+            disp('[configLocalPaths]: local paths added.')
+            
+        case 'remove'
+            
+            % add user-defined paths
+            if ~isempty(Simulator.userDefPathsList)
+        
+                for k = 1:length(Simulator.userDefPathsList)
+            
+                    rmpath(genpath(Simulator.userDefPathsList{k}));
+                end
+            end
+            
+            % add path to models
+            rmpath(pathToModel)
+            
+            % add path to the "external" sources, if there are any
+            if ~isempty(Simulator.extSourcesFoldersList)
+        
+                for k = 1:length(Simulator.extSourcesFoldersList)
+            
+                    rmpath(genpath([pathToExternal,Simulator.extSourcesFoldersList{k}]));
+                end
+            end
+            
+            disp('[configLocalPaths]: local paths removed.')
+            
+        otherwise
+            
+            warning('[configLocalPaths]: no paths were added/removed!!')
+    end 
+end

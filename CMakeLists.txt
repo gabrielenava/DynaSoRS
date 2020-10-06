@@ -13,6 +13,9 @@ project(mbs_CORE)
 # Add core functions
 add_subdirectory(core-functions)
 
+# Add templates 
+add_subdirectory(templates)
+
 # Add utlities 
 add_subdirectory(utility-functions)
 

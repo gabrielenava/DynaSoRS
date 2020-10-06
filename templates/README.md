@@ -1,3 +1,7 @@
 # Templates
 
-Examples of how the MBS core functions can be used to structure a multi-body simulator in Matlab.
+Templates are used to configure local paths during the installation.
+
+## Functions list
+
+- [configLocalPaths](configLocalPaths.m.in)

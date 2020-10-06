@@ -90,7 +90,6 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
                                     'ListString', visualizationList, ...
                                     'SelectionMode', 'multiple', ...
                                     'ListSize', [250 150]);
-
         if isempty(plotDataList)
        
             % nothing is selected
@@ -129,7 +128,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
                 else
                     createVideo = false;
                 end
-                runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)             
+                mbs.runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntreeVisualizer,Simulator)             
             end
             
             if enableSimulationResults
@@ -149,7 +148,7 @@ function [] = openVisualizationMenu(KinDynModel,Visualization,iDyntreeVisualizer
                 if ~isempty(dataNameList)
                     
                     % plot the other results
-                    plotSimulationData(dataNameList,UpdatedFigureSettingsList,DataForVisualization,Visualization,Simulator);
+                    mbs.plotSimulationData(dataNameList,UpdatedFigureSettingsList,DataForVisualization,Visualization,Simulator);
                 end
             end
         end

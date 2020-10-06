@@ -5,7 +5,6 @@ Functions constituting the `core` of the simulator. For more details, see also t
 ## Functions list:
 
 - [openModelMenu](openModelMenu.m)
-- [openSimulationMenu](openSimulationMenu.m)
 - [openVisualizationMenu](openVisualizationMenu.m)
 - [plotSimulationData](plotSimulationData.m)
 - [runVisualizer](runVisualizer.m)
