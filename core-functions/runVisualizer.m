@@ -92,6 +92,9 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     groundTransparency = iDyntreeVisualizer.groundTransparency;
     groundFrame        = iDyntreeVisualizer.groundFrame; 
     frameRate          = iDyntreeVisualizer.frameRate;
+    xtol               = iDyntreeVisualizer.xtol;
+    ytol               = iDyntreeVisualizer.ytol;
+    ztol               = iDyntreeVisualizer.ztol;
 
     % set initial pose
     w_H_b_viz = reshape(w_H_b(:,1),4,4);
@@ -110,16 +113,20 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
                                                             'transparency', transparency, 'debug', debug, 'view', view, ...
                                                             'groundOn', groundOn, 'groundColor', groundColor, ...
                                                             'groundTransparency', groundTransparency, 'groundFrame', groundFrame);
-    % initialize video writer                                                   
+    % set figure bounds
+    xlim([w_H_b_viz(1,4)-xtol, w_H_b_viz(1,4)+xtol])
+    ylim([w_H_b_viz(2,4)-ytol, w_H_b_viz(2,4)+ytol])
+    zlim([w_H_b_viz(3,4)-ztol, w_H_b_viz(3,4)+ztol])
+    
+    % initialize frames for video writer                                                   
     if createVideo 
                 
-        filename = strcat('./MEDIA/img',sprintf('%04d',1),'.png');      
-        saveas(gcf,filename);
+        visualizerFrames(1) = getframe(gcf);     
     end
     
     % compute simulator real time factor
     c_in = clock;
-
+     
     if length(time) > 1
         
         % update visualizer if time is not a scalar
@@ -148,12 +155,16 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
             % update the visualizer
             iDynTreeWrappers.setRobotState(KinDynModel,w_H_b_viz,jointPos_viz,zeros(6,1),zeros(size(jointPos_viz)),[0,0,-9.81]);
             iDynTreeWrappers.updateVisualization(KinDynModel,Visualizer);
+            
+            % update figure bounds
+            xlim([w_H_b_viz(1,4)-xtol, w_H_b_viz(1,4)+xtol])
+            ylim([w_H_b_viz(2,4)-ytol, w_H_b_viz(2,4)+ytol])
+            zlim([w_H_b_viz(3,4)-ztol, w_H_b_viz(3,4)+ztol])
         
-            % create a .mp4 video from the iDyntree simulation
+            % collect all figures in a struct
             if createVideo 
-                
-                filename = strcat('./MEDIA/img',sprintf('%04d',i),'.png');      
-                saveas(gcf,filename);       
+
+                visualizerFrames(i) = getframe(gcf);
             end 
         
             t = toc;
@@ -170,7 +181,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
         t = toc;
         pause(max(0,time-t))
     end
-      
+    
     % compute the simulator real time factor
     c_out           = clock;
     c_diff          = mbs.getTimeDiffInSeconds(c_in,c_out);
@@ -188,16 +199,22 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     
     if createVideo   
         
-        videoName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];     
+        disp('[runVisualizer]: Creating the video...')
+         
+        videoName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];   
+        writerObj = VideoWriter(['./MEDIA/',videoName]);
+        
+        % set user-defined frame rate
+        writerObj.FrameRate = frameRate;
+        open(writerObj);
 
-        command   = ['ffmpeg -framerate ', num2str(frameRate), ' -i ./MEDIA/img%04d.png ./MEDIA/',videoName,'.mp4']; 
-        [~, ~]    = system(command);
+        for i=1:length(time)
+          
+           % convert the image to a frame  
+           writeVideo(writerObj, visualizerFrames(i));
+        end
 
-        disp(['[runVisualizer]: video ',Simulator.modelFolderName,'_',Simulator.savedDataTag,'.mp4 created. Removing images...']);      
-    
-        command   = strcat('rm -Rf ./MEDIA/*.png'); 
-        [~, ~]    = system(command);
- 
-        disp('[runVisualizer]: done.'); 
+        close(writerObj);
+        disp(['[runVisualizer]: video ',Simulator.modelFolderName,'_',Simulator.savedDataTag,'.avi created.']);      
    end
 end
