@@ -92,6 +92,7 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     groundTransparency = iDyntreeVisualizer.groundTransparency;
     groundFrame        = iDyntreeVisualizer.groundFrame; 
     frameRate          = iDyntreeVisualizer.frameRate;
+    videoFormat        = iDyntreeVisualizer.videoFormat;
     xtol               = iDyntreeVisualizer.xtol;
     ytol               = iDyntreeVisualizer.ytol;
     ztol               = iDyntreeVisualizer.ztol;
@@ -200,21 +201,23 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
     if createVideo   
         
         disp('[runVisualizer]: Creating the video...')
-         
-        videoName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];   
-        writerObj = VideoWriter(['./MEDIA/',videoName]);
-        
-        % set user-defined frame rate
-        writerObj.FrameRate = frameRate;
-        open(writerObj);
-
-        for i=1:length(time)
-          
-           % convert the image to a frame  
-           writeVideo(writerObj, visualizerFrames(i));
+        videoName = [Simulator.modelFolderName,'_',Simulator.savedDataTag];  
+ 
+        switch videoFormat
+            
+            case 'gif'
+                
+                mbs.createGIFfromFrames(videoName,frameRate,visualizerFrames);
+                
+            case 'avi'
+                
+                mbs.createAVIfromFrames(videoName,frameRate,visualizerFrames);
+                
+            otherwise
+                
+                error('[runVisualizer]: unsupported video format. Either ''gif'' or ''avi''.')
         end
-
-        close(writerObj);
-        disp(['[runVisualizer]: video ',Simulator.modelFolderName,'_',Simulator.savedDataTag,'.avi created.']);      
+        
+        disp(['[runVisualizer]: video ',Simulator.modelFolderName,'_',Simulator.savedDataTag,'.', videoFormat, ' created.']);      
    end
 end
