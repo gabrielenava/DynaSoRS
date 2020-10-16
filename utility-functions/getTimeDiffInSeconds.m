@@ -25,7 +25,7 @@ function c_diff = getTimeDiffInSeconds(c_in,c_out)
         error('[getTimeDiffInSeconds]: the inputs must have the same year and month.')
     end
     
-    % convert in seconds BEFORE substracting or the result may be wrong!
+    % convert in seconds BEFORE subtracting or the result may be wrong!
     c_in   = c_in(3)*86400 + c_in(4)*3600 + c_in(5)*60 + c_in(6);
     c_out  = c_out(3)*86400 + c_out(4)*3600 + c_out(5)*60 + c_out(6);
     

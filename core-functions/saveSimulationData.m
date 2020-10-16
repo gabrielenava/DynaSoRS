@@ -107,7 +107,7 @@ function dataFileName = saveSimulationData(Visualization,Simulator,mode)
                         
                     elseif ismatrix(currentData)
                         
-                        % matrices are contatenated along a third dimension.
+                        % matrices are concatenated along a third dimension.
                         concatenateDim = 3;
                     else
                         error(['[saveSimulationData]: invalid data: ',Visualization.updatedVizVariableList{k}])

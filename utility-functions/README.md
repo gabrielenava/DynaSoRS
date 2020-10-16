@@ -11,3 +11,6 @@ Matlab functions that support the simulator. They can be used also as standalone
 - [generateMultiple2DPlots](generateMultiple2DPlots.m)
 - [createAVIfromFrames](createAVIfromFrames.m)
 - [createGIFfromFrames](createGIFfromFrames.m)
+- [interpDataForVisualization](interpDataForVisualization.m)
+- [decimateDataForVisualization](decimateDataForVisualization.m)
+- [cleanupDataFromOde](cleanupDataFromOde.m)
