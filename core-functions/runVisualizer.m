@@ -109,6 +109,13 @@ function [] = runVisualizer(jointPos,w_H_b,time,createVideo,KinDynModel,iDyntree
             
             % we decimate the data in order to be closed to the desired frame rate
             [time_dec, jointPos_dec, w_H_b_dec, updatedFrameRate] = mbs.decimateDataForVisualization(time, jointPos, w_H_b, frameRate);
+      
+        case 'none'
+            
+            time_dec         = time;
+            jointPos_dec     = jointPos;
+            w_H_b_dec        = w_H_b;
+            updatedFrameRate = frameRate;
         
         otherwise
             
