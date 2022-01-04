@@ -18,7 +18,7 @@ function [time_dec, jointPos_dec, w_H_b_dec, updatedFrameRate] = interpDataForVi
         else  
             for k = 1:size(jointPos,1)
                 
-                jointPos_dec(k,:) = interp1(time,jointPos(k,:),time_dec);
+                jointPos_dec(k,:) = interp1(time,jointPos(k,:),time_dec); %#ok<AGROW>
             end
         end
         if size(w_H_b, 2) == 1
@@ -36,11 +36,11 @@ function [time_dec, jointPos_dec, w_H_b_dec, updatedFrameRate] = interpDataForVi
                 basePos_current = w_H_b_current(1:3,4);
                 w_R_b_current   = w_H_b_current(1:3,1:3);
                 baseRPY_current = wbc.rollPitchYawFromRotation(w_R_b_current);    
-                basePoseRPY     = [basePoseRPY, [basePos_current; baseRPY_current]];
+                basePoseRPY     = [basePoseRPY, [basePos_current; baseRPY_current]]; %#ok<AGROW>
             end
             for k = 1:size(basePoseRPY, 1)
                 
-                basePoseRPY_dec(k,:) = interp1(time,basePoseRPY(k,:),time_dec);
+                basePoseRPY_dec(k,:) = interp1(time,basePoseRPY(k,:),time_dec); %#ok<AGROW>
             end
             for k = 1:size(basePoseRPY_dec,2)
                 
@@ -50,7 +50,7 @@ function [time_dec, jointPos_dec, w_H_b_dec, updatedFrameRate] = interpDataForVi
                 w_R_b_current   = wbc.rotationFromRollPitchYaw(baseRPY_current);   
                 w_H_b_current   = [w_R_b_current, basePos_current;
                                    0   0   0   1];
-                w_H_b_dec       = [w_H_b_dec, w_H_b_current(:)];
+                w_H_b_dec       = [w_H_b_dec, w_H_b_current(:)]; %#ok<AGROW>
             end
         end 
         disp('[interpDataForVisualization]: data interpolation completed.')

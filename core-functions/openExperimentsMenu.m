@@ -19,7 +19,7 @@ function experimentName = openExperimentsMenu(experimentFolder)
     
     for k = 1:length(experimentStruct)
        
-        experimentList{k} = experimentStruct(k).name;
+        experimentList{k} = experimentStruct(k).name; %#ok<AGROW>
     end
          
     % open the GUI and select the experiments from list

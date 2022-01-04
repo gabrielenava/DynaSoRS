@@ -1,6 +1,6 @@
 # Utility functions
 
-Matlab functions that support the simulator. They can be used also as standalone library of utility functions. For further information refer to the description contained in each function.
+MATLAB functions that support the simulator. They can be used also as standalone library of utility functions. For further information refer to the description contained in each function.
 
 ## List of available functions
 

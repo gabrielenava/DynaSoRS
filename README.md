@@ -4,11 +4,11 @@ This repository contains the `core` functionalities of the `multi-body simulator
 
 ## Operating system
 
-The code has been developed and tested on Ubuntu 18.04.5 LTS.
+The code has been tested on Ubuntu 20.04.3 LTS.
 
 ## Dependencies
 
-- [MATLAB](https://it.mathworks.com/products/matlab.html), tested up to `R2020a`.
+- [MATLAB](https://it.mathworks.com/products/matlab.html), tested up to `R2021a`.
 
 - The MBS simulator is based on the [iDyntree](https://github.com/robotology/idyntree) library. To install `iDyntree` and its dependencies, refer to the [iDyntree README](https://github.com/robotology/idyntree#installation). When compiling `iDyntree`, it is required to set the option `IDYNTREE_USES_MATLAB` to `ON`. In order to use the [iDyntree bindings](https://github.com/robotology/idyntree/tree/master/bindings/matlab), and the [iDyntree wrappers](https://github.com/robotology/idyntree/tree/master/bindings/matlab/+iDynTreeWrappers) for MATLAB, add to the MATLAB path the `path/where/the/iDyntree/generated/mex/file/is`.
 
@@ -30,7 +30,7 @@ In the cmake GUI that will open, set the `CMAKE_INSTALL_PREFIX` to your desired 
 
 - Dowload this repository using the [mbs_superbuild](https://github.com/gabrielenava/mbs_superbuild) **(suggested)**. In this way, there will be also the possibility to use already existing [models](https://github.com/gabrielenava/mbs_models) and [simulations](https://github.com/gabrielenava/mbs_app). For installation, follow the instructions in the [mbs_superbuild README](https://github.com/gabrielenava/mbs_superbuild/blob/master/README.md). 
 
-In both installation cases, it is required to add to the MATLAB path the **parent** directory of the folder `+mbs` that will be installed in your cmake installation path. This can be done **manually** and **permanently** through MATLAB settings. If the repo is installed with the `mbs_superbuild` the paths can be also added by running only once the script [startup_mbs.m](https://github.com/gabrielenava/mbs_superbuild/blob/master/cmake/templates/startup_mbs.m.in) that is generated with cmake in the superbuild `build` folder. In this second case, the path will be loaded **only** if MATLAB is started from the `userpath` folders (usually `~/Documents/MATLAB`).
+In both installation cases, it is required to add to the MATLAB path the **parent** directory of the folder `+mbs`, that will be installed in your cmake installation path. This can be done **manually** and **permanently** through MATLAB settings. If the repo is installed with the `mbs_superbuild` the paths can be also added by running only once the script [startup_mbs.m](https://github.com/gabrielenava/mbs_superbuild/blob/master/cmake/templates/startup_mbs.m.in) that is generated with cmake in the superbuild `build` folder. In this second case, the path will be loaded **only** if MATLAB is started from the `userpath` folders (usually `~/Documents/MATLAB`).
 
 **Usage**: to call any `mbs_core` function inside MATLAB, you need to specify the `mbs` prefix as follows: `callToTheFunction = mbs.nameOfMyMbsFunction(**arguments**)`.
 
