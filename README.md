@@ -1,4 +1,8 @@
-# Multi-Body Simulator (MBS) Core
+# DynaSoRS
+
+Dynamic SimulatOr of Rigid Systems
+
+**WARNING! this repo is under migration from the previous dynamics simulator (MBS) and it is not supposed to work until the migration is completed!**
 
 This repository contains the `core` functionalities of the `multi-body simulator` (MBS) of dynamics, kinematics and control of multi-body systems.
 
