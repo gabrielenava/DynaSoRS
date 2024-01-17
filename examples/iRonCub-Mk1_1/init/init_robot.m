@@ -15,7 +15,7 @@ Config.model.jointList = {'torso_pitch','torso_roll','torso_yaw', ...
 Config.model.baseLinkName = 'root_link';
 
 % model name and path
-robot_name             = 'iRonCub-Mk1_1_v1';
+robot_name             = 'iRonCub-Mk1_1';
 component_path         = getenv('IRONCUB_SOFTWARE_SOURCE_DIR');
 Config.model.modelName = 'model_stl.urdf';
 Config.model.modelPath = [component_path '/models/' robot_name '/iRonCub/robots/' robot_name '/'];

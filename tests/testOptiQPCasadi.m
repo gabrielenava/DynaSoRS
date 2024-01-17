@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-addpath('./../src/')
+addpath('./../src/core/')
 disp('Testing OptiQPCasadi class ...')
 
 %% Create the object, append new variables and parameters
@@ -54,4 +54,4 @@ y_star = opti.getOptimalValue('y');
 disp('u_star:')
 disp(num2str(u_star))
 disp('Done!')
-rmpath('./../src/')
+rmpath('./../src/core/')

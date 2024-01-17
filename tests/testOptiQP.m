@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-addpath('./../src/')
+addpath('./../src/core/')
 disp('Testing OptiQP class ...')
 
 %% Call to OSQP
@@ -70,4 +70,4 @@ disp('u_star test 2 (QUADPROG):')
 disp(num2str(u_star))
 
 disp('Done!')
-rmpath('./../src/')
+rmpath('./../src/core/')

@@ -11,7 +11,6 @@ classdef Integrator < handle
     % Dec. 2022
     %
     properties
-
         init_state;
         integr_opt;
         integr_fcn;
@@ -22,7 +21,7 @@ classdef Integrator < handle
     methods
         function obj = Integrator(init_state, integr_fcn, integr_opt, varargin)
 
-            % Construct an instance of this class
+            % construct an instance of this class
             obj.init_state = init_state;
             obj.integr_opt = integr_opt;
             obj.integr_fcn = integr_fcn;
@@ -31,8 +30,7 @@ classdef Integrator < handle
             switch nargin
 
                 case 4
-
-                    % the user-specified options for the solver
+                    % user-specified options for the solver
                     obj.solver_opt = varargin{1};
 
                 otherwise
@@ -40,7 +38,6 @@ classdef Integrator < handle
             end
         end
 
-        % --------------------------------------------------------------- %
         function [time, state] = solve(obj)
 
             % identify the solver type
@@ -74,7 +71,6 @@ classdef Integrator < handle
             end
         end
 
-        % --------------------------------------------------------------- %
         function [time, state] = solveStepByStep(obj, varargin)
 
             % SOLVESTEPBYSTEP solves numerical integration step by step.
@@ -83,7 +79,7 @@ classdef Integrator < handle
             %                 stopped and the integration restarted for
             %                 another time step with new initial conditions.
             %                 An external function can be passed to the
-            %                 method and it will be called in between steps.
+            %                 method and will be called in between the steps.
             %
 
             % initialize values that are going to be changed at each iteration
@@ -98,7 +94,6 @@ classdef Integrator < handle
             switch nargin
 
                 case 2
-
                     % initialize in-steps function
                     inStepFcn      = varargin{1};
                     obj.input_ctrl = inStepFcn(t_init, initState);
@@ -150,7 +145,6 @@ classdef Integrator < handle
             end
         end
 
-        % --------------------------------------------------------------- %
         function [time, state] = eulerForward(obj)
 
             % implement forward Euler numerical integration

@@ -1,4 +1,7 @@
-% Test of DynaSoRS library with iRonCub-Mk1_1 (from ironcub_mk1_software)
+% Example of usage of DynaSoRS library with iRonCub-Mk1_1. The robot model
+% is available by installing the repo ironcub-mk1-software:
+% 
+%  https://github.com/ami-iit/ironcub-mk1-software
 %
 % Integration of system dynamics is done via MATLAB ode integrators.
 % Additionally, the control formulation is a QP solved with Casadi.
@@ -11,6 +14,7 @@ close all
 clc
 
 % add path to local functions
+addpath(genpath('../../src'))
 addpath(genpath('./src'))
 
 % run scripts for initializing robot, simulator and control params.
@@ -76,4 +80,5 @@ Config.logger.plotData('T', Config.plot_options_T);
 
 %-------------------------------------------------------------------------%
 % remove local paths
+rmpath(genpath('../../src'))
 rmpath(genpath('./src'))

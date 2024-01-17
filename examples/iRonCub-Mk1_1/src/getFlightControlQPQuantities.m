@@ -1,19 +1,5 @@
-function [Hessian, gradient, lowerBound, upperBound] = flightControl_QP_thrust(KinDynModel, w_R_b, posCoM, M, L, ...
+function [Hessian, gradient, lowerBound, upperBound] = getFlightControlQPQuantities(KinDynModel, w_R_b, posCoM, M, L, ...
         pos_vel_acc_jerk_com_des, rot_vel_acc_jerk_base_des, KP_momentum, KD_momentum, Config)
-
-    % ----------------------------------------------------------------------- %
-    % flightControl_QP_thrust
-    %
-    % simpified flight control design to test the MATLAB simulator.
-    %
-    % jointVel = 0; (robot behaves like a rigid body)
-    %
-    % u := jetsIntensities;
-    %
-    % u* = argmin_u 0.5*(|linMomDot-linMomDot*|^2 + |angMomDot-angMomDot*|^2)
-    %  s.t.
-    %    u_min <= u <= u_max
-    % ----------------------------------------------------------------------- %
 
     % compute useful parameters and references
     m      = M(1,1);

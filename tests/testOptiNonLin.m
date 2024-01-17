@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-addpath('./../src/')
+addpath('./../src/core/')
 disp('Testing OptiNonLin class ...')
 
 %% Call to fmincon
@@ -34,7 +34,7 @@ disp('u_star:')
 disp(num2str(u_star))
 
 disp('Done!')
-rmpath('./../src/')
+rmpath('./../src/core/')
 
 %% functions definition
 

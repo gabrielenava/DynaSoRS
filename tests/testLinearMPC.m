@@ -2,7 +2,7 @@ close all
 clear
 clc
 
-addpath('./../src/')
+addpath('./../src/core/')
 disp('Testing LinearMPC class ...')
 
 % Setup the problem
@@ -83,5 +83,5 @@ for i = 1:2*n_x
     title(['State ' num2str(i)])
 end
 
-rmpath('./../src/')
+rmpath('./../src/core/')
 disp('Done!')

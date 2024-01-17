@@ -24,8 +24,8 @@ Provided that the dependencies are met, `git clone` or download this repository 
 
 ## Example
 
-An example of usage of the library is given in the script [testDynaSoRS.m](https://github.com/gabrielenava/DynaSoRS/blob/master/testDynaSoRS.m), which is based on the robot models available in [ironcub_mk1_software](https://github.com/ami-iit/ironcub_mk1_software). **USAGE**: after installing the additional dependency `ironcub_mk1_software`, just run the script.
+An example of usage of the library is given in the [examples](examples) folder.
 
-## Mantainer
+## Maintainer
 
 Gabriele Nava ([@gabrielenava](https://github.com/gabrielenava)).

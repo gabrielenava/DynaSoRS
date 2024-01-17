@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-addpath('./../src/')
+addpath('./../src/core/')
 disp('Testing Logger class ...')
 
 %% Test1: open logger and add new data
@@ -34,4 +34,4 @@ log.plotData('test', plot_options, 10);
 log.removeData('test');
 
 disp('Done!')
-rmpath('./../src/')
+rmpath('./../src/core/')

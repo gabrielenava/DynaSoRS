@@ -18,8 +18,6 @@ classdef Visualizer
     methods
         function obj = Visualizer(w_H_b, jointPos, time, KinDynModel, meshesPath, varargin)
 
-            % Construct an instance of this class
-
             % two acceptable sizes for w_H_b and jointPos: either 4x4
             % matrix and nx1 vector, or 4x4xsteps matrix and nxsteps vector
             [isMatrix_base, isVector_joints] = checkInput(obj, w_H_b, jointPos);

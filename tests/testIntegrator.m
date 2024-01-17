@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-addpath('./../src/')
+addpath('./../src/core/')
 disp('Testing Integrator class ...')
 
 %% Test 1: test forward euler integration
@@ -110,4 +110,4 @@ legend({'euler','ode15s','ode23t','ode45 step (no ctrl)','ode15s step (w ctrl)'}
 disp('Integration time: [t1 t2 t3 t4 t5] (seconds)')
 disp(num2str([t1 t2 t3 t4 t5]))
 disp('Done!')
-rmpath('./../src/')
+rmpath('./../src/core')

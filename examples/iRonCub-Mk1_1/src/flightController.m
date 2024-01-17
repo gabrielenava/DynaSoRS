@@ -1,5 +1,19 @@
 function u = flightController(~, x, KinDynModel, Config)
 
+    % ------------------------------------------------------------------- %
+    % flightController
+    %
+    % simpified flight control design to test the MATLAB simulator.
+    %
+    % jointVel = 0; (robot behaves like a rigid body)
+    %
+    % u := jetsIntensities;
+    %
+    % u* = argmin_u 0.5*(|linMomDot-linMomDot*|^2 + |angMomDot-angMomDot*|^2)
+    %  s.t.
+    %    u_min <= u <= u_max
+    % ------------------------------------------------------------------- %
+
     % reference trajectories and gains
     pos_vel_acc_jerk_com_des  = [Config.initCond.posCoM_init, zeros(3,3)];
     rot_vel_acc_jerk_base_des = [Config.initCond.w_H_b_init(1:3,1:3), zeros(3,3)];
@@ -15,7 +29,7 @@ function u = flightController(~, x, KinDynModel, Config)
     posCoM = iDynTreeWrappers.getCenterOfMassPosition(KinDynModel);
 
     % get QP cost and bounds
-    [Hessian, gradient, lowerBound, upperBound] = flightControl_QP_thrust(KinDynModel, w_R_b, posCoM, M, L, ...
+    [Hessian, gradient, lowerBound, upperBound] = getFlightControlQPQuantities(KinDynModel, w_R_b, posCoM, M, L, ...
         pos_vel_acc_jerk_com_des, rot_vel_acc_jerk_base_des, KP_momentum, KD_momentum, Config);
 
     % solve the QP problem
