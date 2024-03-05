@@ -31,7 +31,7 @@ classdef Logger < handle
 
         function [] = addNewData(obj, newData, name)
 
-            % Append a new variable to the logger
+            % append a new variable to the logger
             if ~isfield(obj.data, name)
 
                 obj.data.(name) = newData;
@@ -46,7 +46,7 @@ classdef Logger < handle
 
         function [] = updateData(obj, newData, name)
 
-            % Update an existing variable
+            % update an existing variable
             if isfield(obj.data, name)
 
                 obj.data.(name) = [obj.data.(name), newData];
@@ -61,7 +61,7 @@ classdef Logger < handle
 
         function [] = removeData(obj, name)
 
-            % Remove an existing field
+            % remove an existing field
             if isfield(obj.data, name)
 
                 obj.data = rmfield(obj.data, name);
@@ -76,7 +76,7 @@ classdef Logger < handle
 
         function [] = logData(obj, data, name)
 
-            % Start/continue logging data. Wraps the functionalities of
+            % start/continue logging data. Wraps the functionalities of
             % updateData and addNewData together.
             if ~isfield(obj.data, name)
 
@@ -122,7 +122,7 @@ classdef Logger < handle
                     figNum = fig.Number;
             end
 
-            % Plot collected data
+            % plot collected data
             hold all
             grid on
 

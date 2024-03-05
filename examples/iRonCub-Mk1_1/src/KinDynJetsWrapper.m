@@ -1,19 +1,17 @@
-classdef KinDynWrapper
-    % KINDYNWRAPPER wraps the iDynTree MATLAB bindings to compute advanced
-    %               dynamic and kinematic quantities for control. Is acts
-    %               similarly (and makes use of) the iDynTree high-level
-    %               wrappers, but it computes more complex control-related
-    %               quantities not avaialable with the wrappers only.
+classdef KinDynJetsWrapper < dynasors.KinDynWrapper
+    % KINDYNJETSWRAPPER inherits from dynasors.KinDynWrapper and adds
+    %                   dynamic and kinematic quantities related to the
+    %                   jets turbines.
     %
     % Author: Gabriele Nava, gabriele.nava@iit.it
-    % Dec. 2022
+    % Mar. 2024
     %
     properties
 
     end
 
     methods
-        function obj = KinDynWrapper()
+        function obj = KinDynJetsWrapper()
 
         end
 
@@ -129,19 +127,6 @@ classdef KinDynWrapper
                 b_J_J2_ang;
                 b_J_J3_ang;
                 b_J_J4_ang];
-        end
-
-        function J_G = getCentroidalTotalMomentumJacobian(~, KinDynModel)
-
-            % GETCENTROIDALTOTALMOMENTUMJACOBIAN gets the centroidal momentum jacobian,
-            %                                    i.e. the matrix that maps the state
-            %                                    velocity to the centroidal momentum.
-
-            % get the cmm jacobian
-            KinDynModel.kinDynComp.getCentroidalTotalMomentumJacobian(KinDynModel.dynamics.J_G_iDyntree);
-
-            % covert to Matlab format
-            J_G = KinDynModel.dynamics.J_G_iDyntree.toMatlab;
         end
     end
 end

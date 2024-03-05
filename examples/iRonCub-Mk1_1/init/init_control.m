@@ -33,7 +33,7 @@ Config.tasksQP.reg_HessianQP = 1e-4;
 Config.inequalitiesQP.maxJetsInt  = [160; 160; 220; 220];
 Config.inequalitiesQP.idleJetsInt = [0; 0; 0; 0];
 
-%% Initialize QP problem with quadprog
+%% Initialize QP problem with OSQP
 
 % initialize problem
 njets   = Config.turbinesData.njets;
@@ -42,8 +42,7 @@ var.g   = zeros(njets,1);
 var.A   = eye(njets);
 var.lb  = Config.inequalitiesQP.idleJetsInt;
 var.ub  = Config.inequalitiesQP.maxJetsInt;
-var.ops = optimoptions('quadprog','Display','off');
 
 % create the solver object
-Config.opti = OptiQP('osqp');
+Config.opti = dynasors.OptiQP('osqp');
 Config.opti.setup(var);

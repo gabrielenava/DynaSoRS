@@ -2,10 +2,10 @@ close all
 clear
 clc
 
-addpath('./../src/core/')
+addpath('../')
 disp('Testing LinearMPC class ...')
 
-% Setup the problem
+% setup the problem
 %
 % consider a discrete-time double integrator model of the form:
 %
@@ -41,7 +41,7 @@ var.x_max = [ 2*pi;  2*pi;  100*pi/180;  100*pi/180];
 var.u_min = [-5; -5];
 var.u_max = [ 5;  5];
 
-opti = LinearMPC();
+opti = dynasors.LinearMPC();
 opti.setup(var);
 
 % simulate the problem in closed loop
@@ -75,13 +75,13 @@ for i = 1:2*n_x
     subplot(2,2,i)
     hold on
     grid on
-    plot(0:n_sim-1, y(:,i), 'r', 'linewidth', 2)
-    plot(0:n_sim-1, y(:,i), '.k', 'markersize', 12)
     plot(0:n_sim-1, y_r(:,i), '--b', 'linewidth', 2)
+    plot(0:n_sim-1, y(:,i), 'r', 'linewidth', 2)
     xlabel('iters')
     ylabel(['y(' num2str(i), ')'])
     title(['State ' num2str(i)])
+    legend({'reference', 'mpc'})
 end
 
-rmpath('./../src/core/')
+rmpath('../')
 disp('Done!')

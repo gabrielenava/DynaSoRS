@@ -1,10 +1,10 @@
 % Example of usage of DynaSoRS library with iRonCub-Mk1_1. The robot model
-% is available by installing the repo ironcub-mk1-software:
-% 
+% is available by installing the repo `ironcub-mk1-software`:
+%
 %  https://github.com/ami-iit/ironcub-mk1-software
 %
 % Integration of system dynamics is done via MATLAB ode integrators.
-% Additionally, the control formulation is a QP solved with Casadi.
+% Additionally, the control formulation is a QP solved with OSQP.
 %
 % Author: Gabriele Nava (gabriele.nava@iit.it)
 % Genova, Dec. 2022
@@ -14,8 +14,8 @@ close all
 clc
 
 % add path to local functions
-addpath(genpath('../../src'))
 addpath(genpath('./src'))
+addpath('../../')
 
 % run scripts for initializing robot, simulator and control params.
 run('./init/init_robot.m');
@@ -31,7 +31,7 @@ u_init         = flightController(Config.integr_opt.t_init, init_state, KinDynMo
 
 % numerical integration
 Config.waitbar = waitbar(0,'Integration in progress...');
-int            = Integrator(init_state, [], Config.integr_opt, Config.solver_opt);
+int            = dynasors.Integrator(init_state, [], Config.integr_opt, Config.solver_opt);
 
 % set initial control input and fwdyn function
 control_fcn    = @(t, x) flightController(t, x, KinDynModel, Config);
@@ -40,7 +40,6 @@ int.integr_fcn = @(t,x) forwardDynamicsMomentum(t, x, int.input_ctrl, KinDynMode
 
 tic;
 [time, state] = int.solve();
-% [time, state] = int.solveStepByStep(control_fcn);
 t_solver      = toc;
 
 disp('Integration done.')
@@ -54,12 +53,13 @@ disp('Press any key...')
 pause();
 
 %-------------------------------------------------------------------------%
-% interpolate and demux the state
-[w_H_b, jointPos, time_dec] = interpAndDemux(state, time, Config);
+% demux and interpolate the state
+[w_H_b, jointPos] = demuxState(state, Config.ndof);
+[w_H_b_dec, jointPos_dec, time_dec] = dynasors.interpolateData(w_H_b, jointPos, time, Config.interpolation.tStep);
 
 % setup visualizer
 disp('Visualizing the robot...')
-viz = Visualizer(w_H_b, jointPos, time_dec, KinDynModel, Config.meshesPath, Config.viz_opt);
+viz = dynasors.Visualizer(w_H_b_dec, jointPos_dec, time_dec, KinDynModel, Config.viz_opt);
 
 % run visualizer
 tic;

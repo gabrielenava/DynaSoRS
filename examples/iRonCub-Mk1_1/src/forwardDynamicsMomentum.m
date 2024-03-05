@@ -46,11 +46,11 @@ function xDot = forwardDynamicsMomentum(t, x, ~, KinDynModel, Config)
 
     % compute the centroidal momentum matrix and CoM position
     M      = iDynTreeWrappers.getFreeFloatingMassMatrix(KinDynModel);
-    CMM    = Config.kinDynWrapper.getCentroidalTotalMomentumJacobian(KinDynModel);
+    CMM    = Config.kinDynJetsWrapper.getCentroidalTotalMomentumJacobian(KinDynModel);
     CMM_b  = CMM(:,1:6);
     CMM_s  = CMM(:,7:end);
     posCoM = iDynTreeWrappers.getCenterOfMassPosition(KinDynModel);
-    A_jets = Config.kinDynWrapper.getJetsMappingMomentum(KinDynModel, posCoM, Config);
+    A_jets = Config.kinDynJetsWrapper.getJetsMappingMomentum(KinDynModel, posCoM, Config);
 
     % ------------------------------------------------------------------- %
 
@@ -62,7 +62,8 @@ function xDot = forwardDynamicsMomentum(t, x, ~, KinDynModel, Config)
     xDot      = [LDot; jointVel; baseVel(1:3); qtDot];
 
     % ------------------------------------------------------------------- %
-    % log data from the forward dynammics simulation
+
+    % log data from the forward dynamics simulation
     Config.logger.logData(t, 'time');
     Config.logger.logData(LDot, 'LDot');
     Config.logger.logData(posCoM, 'posCoM');

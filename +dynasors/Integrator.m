@@ -43,7 +43,7 @@ classdef Integrator < handle
             % identify the solver type
             solver_type = obj.integr_opt.solver_type;
 
-            % Choose the solver
+            % choose the solver
             switch solver_type
 
                 case 'euler'

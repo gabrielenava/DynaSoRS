@@ -6,5 +6,5 @@ function b_H_a = invHomMatrix(a_H_b)
     %               0   0   0               1 ];
     %
     b_H_a = [a_H_b(1:3, 1:3)', -a_H_b(1:3, 1:3)' * a_H_b(1:3, 4); ...
-             zeros(1,3), 1];
+        zeros(1,3), 1];
 end

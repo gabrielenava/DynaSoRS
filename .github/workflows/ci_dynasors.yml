@@ -1,0 +1,33 @@
+name: CI_UKF
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+  
+      - name: Install Eigen
+        run: |
+          sudo apt-get update
+          sudo apt-get install libeigen3-dev
+  
+      - name: Configure and build
+        run: |
+          mkdir build
+          cd build
+          cmake -DBUILD_TEST_UKF=ON ..
+          make
+  
+      - name: Run tests
+        run: |
+          cd build
+          ctest

@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-addpath('./../src/core/')
+addpath('../')
 disp('Testing Logger class ...')
 
 %% Test1: open logger and add new data
@@ -11,7 +11,7 @@ f = @(x) 2*sin(x) + 3*cos(x).^2;
 y = f(x);
 
 debug = true;
-log   = Logger(debug);
+log   = dynasors.Logger(debug);
 log.addNewData(y,'test');
 
 %% Test2: plot the data
@@ -34,4 +34,4 @@ log.plotData('test', plot_options, 10);
 log.removeData('test');
 
 disp('Done!')
-rmpath('./../src/core/')
+rmpath('../')

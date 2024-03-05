@@ -15,6 +15,7 @@ Config.solver_opt             = odeset('RelTol',1e-4,'AbsTol',1e-4,'Stats','off'
 % visualizer class options
 Config.viz_opt.color              = [0.9,0.9,0.9];
 Config.viz_opt.material           = 'metal';
+Config.viz_opt.meshesPath         = Config.meshesPath;
 Config.viz_opt.transparency       = 0.7;
 Config.viz_opt.debug              = false;
 Config.viz_opt.view               = [-92.9356 22.4635];
@@ -25,8 +26,8 @@ Config.interpolation.tStep        = 1/30; % data decimation for visualizer
 
 % initialize the KinDynWrapper and Logger class to compute complex dynamics
 % and kinematics quantities using iDynTree, and log data
-Config.kinDynWrapper              = KinDynWrapper();
-Config.logger                     = Logger();
+Config.kinDynJetsWrapper          = KinDynJetsWrapper();
+Config.logger                     = dynasors.Logger();
 
 % plot options for LDot
 Config.plot_options_LDot.yLabel   = 'LDot';

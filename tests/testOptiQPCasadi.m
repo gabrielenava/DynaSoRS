@@ -2,11 +2,11 @@ close all
 clc
 clear
 
-addpath('./../src/core/')
+addpath('../')
 disp('Testing OptiQPCasadi class ...')
 
 %% Create the object, append new variables and parameters
-opti = OptiQPCasadi();
+opti = dynasors.OptiQPCasadi();
 
 opti.addOptiVariable('x',3);
 opti.addOptiVariable('y',1);
@@ -54,4 +54,4 @@ y_star = opti.getOptimalValue('y');
 disp('u_star:')
 disp(num2str(u_star))
 disp('Done!')
-rmpath('./../src/core/')
+rmpath('../')

@@ -2,12 +2,12 @@ close all
 clc
 clear
 
-addpath('./../src/core/')
+addpath('../')
 disp('Testing OptiNonLin class ...')
 
 %% Call to fmincon
 
-% Problem: find the minimum of Rosenbrock's function on the unit disk
+% problem: find the minimum of Rosenbrock's function on the unit disk
 %
 % see also fmincon documentation
 
@@ -24,7 +24,7 @@ var.u_init  = [0, 0];
 var.options = optimoptions('fmincon','Algorithm','sqp');
 
 % setup the problem
-opti = OptiNonLin();
+opti = dynasors.OptiNonLin();
 opti.update(var);
 
 % solve the problem
@@ -34,7 +34,7 @@ disp('u_star:')
 disp(num2str(u_star))
 
 disp('Done!')
-rmpath('./../src/core/')
+rmpath('../')
 
 %% functions definition
 

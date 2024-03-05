@@ -7,7 +7,7 @@ function [Hessian, gradient, lowerBound, upperBound] = getFlightControlQPQuantit
     %% MOMENTUM-RELATED QUANTITIES
 
     % matrix that maps jets intensities in centroidal momentum derivative
-    Aj     = Config.kinDynWrapper.getJetsMappingMomentum(KinDynModel, posCoM, Config);
+    Aj     = Config.kinDynJetsWrapper.getJetsMappingMomentum(KinDynModel, posCoM, Config);
     Aj_lin = Aj(1:3, :);
     Aj_ang = Aj(4:6, :);
 

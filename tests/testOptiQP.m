@@ -2,32 +2,32 @@ close all
 clc
 clear
 
-addpath('./../src/core/')
+addpath('../')
 disp('Testing OptiQP class ...')
 
 %% Call to OSQP
 
-% Problem structure:
+% problem structure:
 %
 % x = argmin (1/2*x'*H*x + x'*g)
 %
 % s.t.
 % lb <= A*x <= ub
 
-% Define problem data
+% define problem data
 var.H  = sparse([4, 1; 1, 2]);
 var.g  = [1; 1];
 var.A  = sparse([1, 1; 1, 0; 0, 1]);
 var.lb = [1; 0; 0];
 var.ub = [1; 0.7; 0.7];
 
-% Create the solver object
-opti = OptiQP('osqp');
+% create the solver object
+opti = dynasors.OptiQP('osqp');
 
-% Setup problem
+% setup problem
 opti.setup(var);
 
-% Change values and update problem
+% change values and update problem
 var.H  = sparse([5, 1.5; 1.5, 1]);
 var.g  = [2; 3];
 var.A  = sparse([1.2, 1.1; 1.5, 0; 0, 0.8]);
@@ -36,7 +36,7 @@ var.ub = [2; 2.5; 2.5];
 
 opti.update(var);
 
-% Solve problem
+% solve problem
 u_star = opti.solve();
 
 disp('u_star test 1 (OSQP):')
@@ -44,7 +44,7 @@ disp(num2str(u_star))
 
 %% Call to QUADPROG
 
-% Setup QP problem
+% setup QP problem
 var.H    = sparse([5, 1.5; 1.5, 1]);
 var.g    = [2; 3];
 var.A    = sparse([1.2, 1.1; 1.5, 0; 0, 0.8]);
@@ -56,7 +56,7 @@ var.ub   = [10; 5];
 var.x0   = [];
 var.opts = optimoptions('quadprog','Display','off');
 
-opti2 = OptiQP('quadprog');
+opti2 = dynasors.OptiQP('quadprog');
 opti2.setup(var);
 
 % update variables
@@ -70,4 +70,4 @@ disp('u_star test 2 (QUADPROG):')
 disp(num2str(u_star))
 
 disp('Done!')
-rmpath('./../src/core/')
+rmpath('../')
