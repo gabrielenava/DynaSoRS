@@ -44,7 +44,7 @@ The main classes of the library are tested in the [tests](tests) folder. This is
 Examples of usage of the library are given in the [examples](examples) folder:
 
 - [simpleRobot](examples/simpleRobot): dynamics simulation and control of a simple fixed-base serial robot.
-- [iRonCub-Mk1_1](examples/iRonCub-Mk1_1) dynamics simulation and QP-based control of a floating-base jet-powered humanoid robot.
+- [iRonCub-Mk1_1](examples/iRonCub-Mk1_1) dynamics simulation and QP control of a floating-base jet-powered humanoid robot.
 
 ## Maintainer
 
