@@ -36,12 +36,12 @@ Config.inequalitiesQP.idleJetsInt = [0; 0; 0; 0];
 %% Initialize QP problem with OSQP
 
 % initialize problem
-njets   = Config.turbinesData.njets;
-var.H   = eye(njets);
-var.g   = zeros(njets,1);
-var.A   = eye(njets);
-var.lb  = Config.inequalitiesQP.idleJetsInt;
-var.ub  = Config.inequalitiesQP.maxJetsInt;
+njets  = Config.turbinesData.njets;
+var.H  = eye(njets);
+var.g  = zeros(njets,1);
+var.A  = eye(njets);
+var.lb = Config.inequalitiesQP.idleJetsInt;
+var.ub = Config.inequalitiesQP.maxJetsInt;
 
 % create the solver object
 Config.opti = dynasors.OptiQP('osqp');

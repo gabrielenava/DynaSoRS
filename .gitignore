@@ -22,15 +22,9 @@ slprj/
 
 # Matlab binary .mat files
 *.mat
-!software/ironcub-optimization/jets-pose-optimization/results/*.mat
-!software/ironcub-optimization/joint-pos-optimization/results/*.mat
-!software/ironcub-optimization/iNomaly/data/*.mat
-!software/ironcub-optimization/iNomaly/tests/test_data/*.mat
 
 # Matlab figures
 *.fig
-!software/flight-controllers/controlAndDataGui/*.fig
-!software/flight-controllers/wind-tunnel-control/src/static-gui/*.fig
 
 # Simulink autosave
 *.autosave

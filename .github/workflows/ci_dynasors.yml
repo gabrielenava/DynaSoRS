@@ -1,10 +1,10 @@
-name: CI_UKF
+name: CI_DYNASORS
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -15,19 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
   
-      - name: Install Eigen
-        run: |
-          sudo apt-get update
-          sudo apt-get install libeigen3-dev
-  
       - name: Configure and build
         run: |
           mkdir build
           cd build
-          cmake -DBUILD_TEST_UKF=ON ..
+          cmake ..
           make
-  
-      - name: Run tests
-        run: |
-          cd build
-          ctest
+
