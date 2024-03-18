@@ -1,5 +1,7 @@
 # DynaSoRS
 
+[![CI_DYNASORS](https://github.com/gabrielenava/DynaSoRS/actions/workflows/ci_dynasors.yml/badge.svg)](https://github.com/gabrielenava/DynaSoRS/actions/workflows/ci_dynasors.yml)
+
 **Dynamic SimulatOr of Rigid Systems**
 
 A small collection of MATLAB classes and functions that can be used to simulate rigid body systems kinematics, dynamics, and control.
