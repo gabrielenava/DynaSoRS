@@ -35,7 +35,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX="/path/to/desired/install/dir"
 make install
 ```
 
-In order to use the library, add to the MATLAB path the `path/where/the/installed/dynasors/package/is`.
+In order to use the library, add to the MATLAB path the `path/where/the/installed/dynasors/package/is`. A script called `startupDynasors.m` is generated automatically inside the `build` folder. Run the script once to permanently add the (installed) `+dynasors` package to the MATLAB path.
 
 ## Tests
 
