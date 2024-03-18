@@ -15,7 +15,6 @@ clc
 
 % add path to local functions
 addpath(genpath('./src'))
-addpath('../../')
 
 % run scripts for initializing robot, simulator and control params.
 run('./init/init_robot.m');
