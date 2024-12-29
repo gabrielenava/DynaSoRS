@@ -40,7 +40,7 @@ classdef KinDynJetsWrapper < dynasors.KinDynWrapper
                 l_jet_i = sign(turbineAxis(i))*w_R_j_i(1:3,abs(turbineAxis(i)));
 
                 % compute i-th column of matrix A
-                A(:,i)  = iRonCubLib.skewBar(r_jet_i)*l_jet_i;
+                A(:,i)  = dynasors.skewBar(r_jet_i)*l_jet_i;
             end
         end
 
